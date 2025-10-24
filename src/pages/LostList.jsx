@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
-const PostList = () => {
+const LostList = () => {
   const navigate = useNavigate();
 
   return (
@@ -24,15 +24,12 @@ const PostList = () => {
                 공지사항
               </CatText>
               <hr />
-              <CatText onClick={() => navigate("/lost-list")}>분실물</CatText>
+              <CatText onClick={() => navigate("/lost-list")}>분실물 </CatText>
             </CatBox>
-            <PostButtonBox>
-              <PostButton>공지사항 작성하기</PostButton>
-              <PostButton>분실물 작성하기</PostButton>
-            </PostButtonBox>
+            <PostButton>분실물 작성하기</PostButton>
           </ListInputBox>
           <AllListBox>
-            <ListBox onClick={() => navigate("/check-notice")}>
+            <ListBox onClick={() => navigate("/check-lost")}>
               <TitleText>제목이 들어갑니다.</TitleText>
               <DateText>2025 / 10 / 24</DateText>
             </ListBox>
@@ -46,7 +43,6 @@ const PostList = () => {
 const Body = styled.div`
   width: 100%;
   height: 100vh;
-  margin-bottom: 174px;
 `;
 const Header = styled.div`
   width: 100%;
@@ -89,7 +85,7 @@ const ListInputBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 67px;
+  margin-top: 30px;
 `;
 
 const CatBox = styled.div`
@@ -106,12 +102,6 @@ const CatBox = styled.div`
 const CatText = styled.div`
   color: #555555;
   cursor: pointer;
-`;
-
-const PostButtonBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
 `;
 
 const PostButton = styled.button`
@@ -156,4 +146,4 @@ const DateText = styled.span`
   align-self: flex-end;
   color: #555555;
 `;
-export default PostList;
+export default LostList;
