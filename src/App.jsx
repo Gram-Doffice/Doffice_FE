@@ -1,14 +1,22 @@
-import { Route, Routes } from "react-router-dom";
+import {Routes, Route } from "react-router-dom";
 import PostList from "./pages/PostList";
 import Login from "./pages/Login";
 import Write_Notice from "./pages/Write_Notice";
 import Write_Lost from "./pages/Write_Lost";
 import Modify_Notice from "./pages/Modify_Notice"
 import Modify_Lost from "./pages/Modify_Lost"
+import LostList from "./pages/LostList";
+import NoticeList from "./pages/NoticeList";
+import CheckLost from "./pages/CheckLost";
+import CheckNotice from "./pages/CheckNotice";
 
 function App() {
   return (
     <Routes>
+      <Route path="/lost-list" element={<LostList />} />
+      <Route path="/notice-list" element={<NoticeList />} />
+      <Route path="/check-lost" element={<CheckLost />} />
+      <Route path="/check-notice" element={<CheckNotice />} />
       <Route path="/PostList" element={<PostList />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Write_Notice" element={<Write_Notice />} />
