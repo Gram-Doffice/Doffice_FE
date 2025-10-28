@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 const LostList = () => {
   const navigate = useNavigate();
+  const [active, setActive] = useState("/lost-list");
+  const [isOwn, setIsOwn] = useState(false);
+
+  const handleClick = (path) => {
+    setActive(path);
+    navigate(path);
+  };
 
   return (
     <Body>
@@ -15,18 +22,34 @@ const LostList = () => {
       </Header>
       <SecondContainer>
         <MainBox>
-          <ListText onClick={() => navigate("/")}>게시물 목록</ListText>
+          <ListText>게시물 목록</ListText>
           <ListInputBox>
             <CatBox>
-              <CatText onClick={() => navigate("/")}>전체 게시물</CatText>
+              <CatText active={active === "/"} onClick={() => handleClick("/")}>
+                전체 게시물
+              </CatText>
               <hr />
-              <CatText onClick={() => navigate("/notice-list")}>
+              <CatText
+                active={active === "/notice-list"}
+                onClick={() => handleClick("/notice-list")}
+              >
                 공지사항
               </CatText>
               <hr />
-              <CatText onClick={() => navigate("/lost-list")}>분실물 </CatText>
+              <CatText
+                active={active === "/lost-list"}
+                onClick={() => handleClick("/lost-list")}
+              >
+                분실물{" "}
+              </CatText>
             </CatBox>
-            <PostButton onClick={() => navigate("/write-lost")}>분실물 작성하기</PostButton>
+            {isOwn && (
+              <>
+                <PostButton onClick={() => navigate("/write-lost")}>
+                  분실물 작성하기
+                </PostButton>
+              </>
+            )}
           </ListInputBox>
           <AllListBox>
             <ListBox onClick={() => navigate("/check-lost")}>
@@ -100,7 +123,8 @@ const CatBox = styled.div`
 `;
 
 const CatText = styled.div`
-  color: #555555;
+  color: ${(props) => (props.active ? "#000000" : "#777777")};
+  font-weight: ${(props) => (props.active ? "600" : "400")};
   cursor: pointer;
 `;
 

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Picture from "../assets/arrow.svg";
 
 const CheckNotice = () => {
   const navigate = useNavigate();
+  const [isOwn, setIsOwn] = useState(false);
+
   return (
     <Body>
       <Header>
@@ -16,8 +18,8 @@ const CheckNotice = () => {
       <SecondContainer>
         <MainBox>
           <TextList>
-            <MoveListText onClick={() => navigate("/")}>
-              게시물 목록
+            <MoveListText onClick={() => navigate("/notice-list")}>
+              공지사항 목록
             </MoveListText>
             <img src={Picture} />
             <MoveLostText onClick={() => navigate("/check-notice")}>
@@ -28,8 +30,14 @@ const CheckNotice = () => {
 
           <DetailBox>
             <BtnBox>
-              <EditBtn onClick={() => navigate("/modify-notice")}   >수정하기</EditBtn>
-              <DeleteBtn>삭제하기</DeleteBtn>
+              {isOwn ? (
+                <>
+                  <EditBtn>수정하기</EditBtn>
+                  <DeleteBtn>삭제하기</DeleteBtn>
+                </>
+              ) : (
+                <HashTag># 공지사항</HashTag>
+              )}
             </BtnBox>
             <DateText>2025 / 10 / 24</DateText>
           </DetailBox>
@@ -146,7 +154,7 @@ const EditBtn = styled.button`
 
   &:hover {
     background-color: #52aa06;
-  border: 1px solid #52aa06;  
+    border: 1px solid #52aa06;
     color: white;
   }
 `;
@@ -160,9 +168,15 @@ const DeleteBtn = styled.button`
 
   &:hover {
     background-color: #ff4646;
-  border: 1px solid #ff4646;
+    border: 1px solid #ff4646;
     color: white;
   }
+`;
+
+const HashTag = styled.span`
+  font-size: 18px;
+  font-weight: bold;
+  color: #555555;
 `;
 
 const DateText = styled.span`
