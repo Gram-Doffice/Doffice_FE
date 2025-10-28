@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 const NoticeList = () => {
   const navigate = useNavigate();
+  const [active, setActive] = useState("/notice-list");
+  const [isOwn, setIsOwn] = useState(false);
+
+  const handleClick = (path) => {
+    setActive(path);
+    navigate(path);
+  };
 
   return (
     <Body>
@@ -15,18 +22,34 @@ const NoticeList = () => {
       </Header>
       <SecondContainer>
         <MainBox>
-          <ListText onClick={() => navigate("/")}>게시물 목록</ListText>
+          <ListText>게시물 목록</ListText>
           <ListInputBox>
             <CatBox>
-              <CatText onClick={() => navigate("/")}>전체 게시물</CatText>
+              <CatText active={active === "/"} onClick={() => handleClick("/")}>
+                전체 게시물
+              </CatText>
               <hr />
-              <CatText onClick={() => navigate("/notice-list")}>
+              <CatText
+                active={active === "/notice-list"}
+                onClick={() => handleClick("/notice-list")}
+              >
                 공지사항
               </CatText>
               <hr />
-              <CatText onClick={() => navigate("/lost-list")}>분실물 </CatText>
+              <CatText
+                active={active === "/lost-list"}
+                onClick={() => handleClick("/lost-list")}
+              >
+                분실물{" "}
+              </CatText>
             </CatBox>
-            <PostButton>공지사항 작성하기</PostButton>
+            {isOwn && (
+              <>
+                <PostButton onClick={() => navigate("/write-notice")}>
+                  공지사항 작성하기
+                </PostButton>
+              </>
+            )}
           </ListInputBox>
           <AllListBox>
             <ListBox onClick={() => navigate("/check-notice")}>
@@ -100,7 +123,8 @@ const CatBox = styled.div`
 `;
 
 const CatText = styled.div`
-  color: #555555;
+  color: ${(props) => (props.active ? "#000000" : "#777777")};
+  font-weight: ${(props) => (props.active ? "600" : "400")};
   cursor: pointer;
 `;
 
@@ -124,8 +148,8 @@ const ListBox = styled.div`
   height: 25vh;
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
@@ -136,14 +160,14 @@ const TitleText = styled.span`
   font-size: 22px;
   font-weight: bold;
   align-self: center;
-  position: absolute;
-  top: 68px;
-  left: 63px;
 `;
 const DateText = styled.span`
   font-size: 16px;
   font-weight: bold;
   align-self: flex-end;
   color: #555555;
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
 `;
 export default NoticeList;
