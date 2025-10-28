@@ -10,7 +10,7 @@ const PostList = () => {
       <Header>
         <HeaderTextBox>
           <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText>LOGIN</HeaderText>
+          <HeaderText onClick={() => navigate("/login")}>LOGIN</HeaderText>
         </HeaderTextBox>
       </Header>
       <SecondContainer>
@@ -27,8 +27,8 @@ const PostList = () => {
               <CatText onClick={() => navigate("/lost-list")}>분실물</CatText>
             </CatBox>
             <PostButtonBox>
-              <PostButton>공지사항 작성하기</PostButton>
-              <PostButton>분실물 작성하기</PostButton>
+              <PostButton onClick={() => navigate("/write-notice")}>공지사항 작성하기</PostButton>
+              <PostButton onClick={() => navigate("/write-lost")}>분실물 작성하기</PostButton>
             </PostButtonBox>
           </ListInputBox>
           <AllListBox>
@@ -45,7 +45,7 @@ const PostList = () => {
 
 const Body = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 900px;
   margin-bottom: 174px;
 `;
 const Header = styled.div`
@@ -134,8 +134,8 @@ const ListBox = styled.div`
   height: 25vh;
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
@@ -146,14 +146,14 @@ const TitleText = styled.span`
   font-size: 22px;
   font-weight: bold;
   align-self: center;
-  position: absolute;
-  top: 68px;
-  left: 63px;
 `;
 const DateText = styled.span`
   font-size: 16px;
   font-weight: bold;
   align-self: flex-end;
   color: #555555;
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
 `;
 export default PostList;

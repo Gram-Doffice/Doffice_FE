@@ -10,15 +10,15 @@ const Write_Notice = () => {
   return (
     <Body>
       <Header>
-        <Menu>
-          <HomeButton>HOME</HomeButton>
-          <LogIn onClick={() => navigate("/Modify_Notice")}>LOGIN</LogIn>
-        </Menu>
+        <HeaderTextBox>
+          <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
+          <HeaderText onClick={() => navigate("/login")}>LOGIN</HeaderText>
+        </HeaderTextBox>
       </Header>
       <Main>
         <Container>
         <Page_move>
-            <Page_PostList>게시글 목록</Page_PostList>
+            <Page_PostList onClick={() => navigate("/")}>게시글 목록</Page_PostList>
             <Arrow><img src={arrow} /></Arrow>
             <Page_WriteNotice>공지사항 수정</Page_WriteNotice>
         </Page_move>
@@ -50,39 +50,23 @@ const Body = styled.div`
 `;
 
 const Header = styled.div`
-  width: 100vw;
-  height: 7%;
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
-  position: relative;
+  width: 100%;
+  height: 8%;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   display: flex;
+  justify-content: flex-end;
   align-items: center;
+  margin-bottom: 49px;
 `;
 
-const Menu = styled.div`
-  width: 13%;
-  height: auto;
-  position: absolute;
-  right: 7%;
-  display: flex;
-  gap: 100px;
-`;
+const HeaderTextBox = styled.div``;
 
-const HomeButton = styled.span`
+const HeaderText = styled.span`
   font-size: 25px;
-  font-weight: 700;
+  font-weight: bold;
+  margin-right: 102px;
   color: #555555;
-      &:hover{
-    cursor: pointer;
-  }
-`;
-
-const LogIn = styled.div`
-  font-size: 25px;
-  font-weight: 700;
-  color: #555555;
-      &:hover{
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const Main = styled.div`

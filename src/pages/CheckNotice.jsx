@@ -10,7 +10,7 @@ const CheckNotice = () => {
       <Header>
         <HeaderTextBox>
           <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText>LOGIN</HeaderText>
+          <HeaderText onClick={() => navigate("/login")}>LOGIN</HeaderText>
         </HeaderTextBox>
       </Header>
       <SecondContainer>
@@ -28,7 +28,7 @@ const CheckNotice = () => {
 
           <DetailBox>
             <BtnBox>
-              <EditBtn>수정하기</EditBtn>
+              <EditBtn onClick={() => navigate("/modify-notice")}   >수정하기</EditBtn>
               <DeleteBtn>삭제하기</DeleteBtn>
             </BtnBox>
             <DateText>2025 / 10 / 24</DateText>
@@ -146,7 +146,7 @@ const EditBtn = styled.button`
 
   &:hover {
     background-color: #52aa06;
-    border: none;
+  border: 1px solid #52aa06;  
     color: white;
   }
 `;
@@ -160,7 +160,7 @@ const DeleteBtn = styled.button`
 
   &:hover {
     background-color: #ff4646;
-    border: none;
+  border: 1px solid #ff4646;
     color: white;
   }
 `;
