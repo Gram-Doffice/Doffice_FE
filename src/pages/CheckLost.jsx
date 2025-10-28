@@ -13,7 +13,7 @@ const CheckList = () => {
       <Header>
         <HeaderTextBox>
           <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText>LOGIN</HeaderText>
+          <HeaderText onClick={() => navigate("/Login")}>LOGIN</HeaderText>
         </HeaderTextBox>
       </Header>
       <SecondContainer>
@@ -39,6 +39,7 @@ const CheckList = () => {
               ) : (
                 <HashTag># 분실물</HashTag>
               )}
+
             </BtnBox>
             <DateText>2025 / 10 / 24</DateText>
           </DetailBox>
@@ -161,6 +162,7 @@ const EditBtn = styled.button`
 
   &:hover {
     background-color: #52aa06;
+
     border: 1px solid #52aa06;
     color: white;
   }

@@ -17,7 +17,7 @@ const LostList = () => {
       <Header>
         <HeaderTextBox>
           <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText>LOGIN</HeaderText>
+          <HeaderText onClick={() => navigate("/login")}>LOGIN</HeaderText>
         </HeaderTextBox>
       </Header>
       <SecondContainer>
@@ -64,8 +64,8 @@ const LostList = () => {
 };
 
 const Body = styled.div`
-  width: 100%;
-  height: 100vh;
+  width: 100vw;
+  height: 900px;
 `;
 const Header = styled.div`
   width: 100%;

@@ -68,7 +68,7 @@ const PostList = () => {
 
 const Body = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 900px;
   margin-bottom: 174px;
 `;
 const Header = styled.div`
