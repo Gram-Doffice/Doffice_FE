@@ -45,7 +45,9 @@ const LostList = () => {
             </CatBox>
             {isOwn && (
               <>
-                <PostButton>분실물 작성하기</PostButton>
+                <PostButton onClick={() => navigate("/write-lost")}>
+                  분실물 작성하기
+                </PostButton>
               </>
             )}
           </ListInputBox>

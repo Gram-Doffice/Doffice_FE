@@ -18,11 +18,11 @@ function App() {
       <Route path="/check-lost" element={<CheckLost />} />
       <Route path="/check-notice" element={<CheckNotice />} />
       <Route path="/" element={<PostList />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Write-Notice" element={<Write_Notice />} />
-      <Route path="/Write-Lost" element={<Write_Lost />} />
-      <Route path="/Modify-Notice" element={<Modify_Notice />} />
-      <Route path="/Modify-lost" element={<Modify_Lost />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/write-notice" element={<Write_Notice />} />
+      <Route path="/write-lost" element={<Write_Lost />} />
+      <Route path="/modify-notice" element={<Modify_Notice />} />
+      <Route path="/modify-lost" element={<Modify_Lost />} />
     </Routes>
   );
 }

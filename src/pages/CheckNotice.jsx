@@ -19,7 +19,7 @@ const CheckNotice = () => {
         <MainBox>
           <TextList>
             <MoveListText onClick={() => navigate("/notice-list")}>
-              게시물 목록
+              공지사항 목록
             </MoveListText>
             <img src={Picture} />
             <MoveLostText onClick={() => navigate("/check-notice")}>
@@ -154,7 +154,7 @@ const EditBtn = styled.button`
 
   &:hover {
     background-color: #52aa06;
-    border: none;
+    border: 1px solid #52aa06;
     color: white;
   }
 `;
@@ -168,7 +168,7 @@ const DeleteBtn = styled.button`
 
   &:hover {
     background-color: #ff4646;
-    border: none;
+    border: 1px solid #ff4646;
     color: white;
   }
 `;

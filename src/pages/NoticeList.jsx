@@ -45,7 +45,9 @@ const NoticeList = () => {
             </CatBox>
             {isOwn && (
               <>
-                <PostButton>공지사항 작성하기</PostButton>
+                <PostButton onClick={() => navigate("/write-notice")}>
+                  공지사항 작성하기
+                </PostButton>
               </>
             )}
           </ListInputBox>

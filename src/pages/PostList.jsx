@@ -17,7 +17,7 @@ const PostList = () => {
       <Header>
         <HeaderTextBox>
           <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText>LOGIN</HeaderText>
+          <HeaderText onClick={() => navigate("/login")}>LOGIN</HeaderText>
         </HeaderTextBox>
       </Header>
       <SecondContainer>
@@ -45,10 +45,13 @@ const PostList = () => {
             </CatBox>
             <PostButtonBox>
               {isOwn && (
-                <><PostButton>공지사항 작성하기</PostButton>
-              <PostButton>분실물 작성하기</PostButton></>
+                <>
+                  <PostButton onClick={() => navigate("/write-notice")}>
+                    공지사항 작성하기
+                  </PostButton>
+                  <PostButton onClick={() => navigate("/write-lost")}>분실물 작성하기</PostButton>
+                </>
               )}
-              
             </PostButtonBox>
           </ListInputBox>
           <AllListBox>
