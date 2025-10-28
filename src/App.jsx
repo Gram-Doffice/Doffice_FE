@@ -17,12 +17,12 @@ function App() {
       <Route path="/notice-list" element={<NoticeList />} />
       <Route path="/check-lost" element={<CheckLost />} />
       <Route path="/check-notice" element={<CheckNotice />} />
-      <Route path="/PostList" element={<PostList />} />
+      <Route path="/" element={<PostList />} />
       <Route path="/Login" element={<Login />} />
-      <Route path="/Write_Notice" element={<Write_Notice />} />
-      <Route path="/Write_Lost" element={<Write_Lost />} />
-      <Route path="/Modify_Notice" element={<Modify_Notice />} />
-      <Route path="/" element={<Modify_Lost />} />
+      <Route path="/Write-Notice" element={<Write_Notice />} />
+      <Route path="/Write-Lost" element={<Write_Lost />} />
+      <Route path="/Modify-Notice" element={<Modify_Notice />} />
+      <Route path="/Modify-lost" element={<Modify_Lost />} />
     </Routes>
   );
 }
