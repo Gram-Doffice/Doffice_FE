@@ -10,12 +10,7 @@ const Write_Notice = () => {
 
   return (
     <Body>
-      <Header>
-        <HeaderTextBox>
-          <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText onClick={() => navigate("/login")}>LOGIN</HeaderText>
-        </HeaderTextBox>
-      </Header>
+      <Header/>
       <Main>
         <Container>
           <Page_move>
@@ -69,15 +64,6 @@ const Header = styled.div`
   margin-bottom: 49px;
 `;
 
-const HeaderTextBox = styled.div``;
-
-const HeaderText = styled.span`
-  font-size: 25px;
-  font-weight: bold;
-  margin-right: 102px;
-  color: #555555;
-  cursor: pointer;
-`;
 
 const Main = styled.div`
   width: 100%;

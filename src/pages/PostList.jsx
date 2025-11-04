@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 const PostList = () => {
   const navigate = useNavigate();
@@ -14,12 +15,7 @@ const PostList = () => {
 
   return (
     <Body>
-      <Header>
-        <HeaderTextBox>
-          <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText onClick={() => navigate("/login")}>LOGIN</HeaderText>
-        </HeaderTextBox>
-      </Header>
+      <Header/>
       <SecondContainer>
         <MainBox>
           <ListText>게시물 목록</ListText>
@@ -71,24 +67,7 @@ const Body = styled.div`
   height: 900px;
   margin-bottom: 174px;
 `;
-const Header = styled.div`
-  width: 100%;
-  height: 8%;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 49px;
-`;
-const HeaderTextBox = styled.div``;
 
-const HeaderText = styled.span`
-  font-size: 25px;
-  font-weight: bold;
-  margin-right: 102px;
-  color: #555555;
-  cursor: pointer;
-`;
 
 const SecondContainer = styled.div`
   display: flex;

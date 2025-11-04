@@ -4,6 +4,7 @@ import arrow from "../assets/arrow.svg";
 import test from "../assets/Qkzb.jpg"
 import { useNavigate } from "react-router-dom";
 import trashcan from "../assets/trash-solid (1) 1.svg"
+import Header from "../components/Header";
 
 const Write_Notice = () => {
 
@@ -15,12 +16,7 @@ const Write_Notice = () => {
   
   return (
     <Body>
-      <Header>
-        <HeaderTextBox>
-          <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText onClick={() => navigate("/login")}>LOGIN</HeaderText>
-        </HeaderTextBox>
-      </Header>
+      <Header/>
       <Main>
         <Container>
           <Page_move>
@@ -73,25 +69,6 @@ const Body = styled.div`
   height: 900px;
 `;
 
-const Header = styled.div`
-  width: 100%;
-  height: 8%;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 49px;
-`;
-
-const HeaderTextBox = styled.div``;
-
-const HeaderText = styled.span`
-  font-size: 25px;
-  font-weight: bold;
-  margin-right: 102px;
-  color: #555555;
-  cursor: pointer;
-`;
 
 const Main = styled.div`
   width: 100%;
