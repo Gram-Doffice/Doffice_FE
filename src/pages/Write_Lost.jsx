@@ -69,8 +69,6 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  margin: 20px 0;
 `;
 const Page_move = styled.div`
   width: 24%;
@@ -78,6 +76,7 @@ const Page_move = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  margin-bottom: 49px;
 `;
 
 const Page_PostList = styled.span`
