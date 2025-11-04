@@ -1,60 +1,62 @@
 import React from "react";
 import styled from "@emotion/styled";
 import arrow from "../assets/arrow.svg";
-import test from "../assets/Qkzb.jpg"
+import test from "../assets/Qkzb.jpg";
 import { useNavigate } from "react-router-dom";
-import trashcan from "../assets/trash-solid (1) 1.svg"
+import trashcan from "../assets/trash-solid (1) 1.svg";
 import Header from "../components/Header";
 
-const Write_Notice = () => {
-
-
+const Modify_Lost = () => {
   const navigate = useNavigate();
 
-
-
-  
   return (
     <Body>
-      <Header/>
+      <Header />
       <Main>
         <Container>
           <Page_move>
-            <Page_PostList onClick={() => navigate("/")}>게시글 목록</Page_PostList>
+            <Page_PostList onClick={() => navigate("/")}>
+              게시글 목록
+            </Page_PostList>
             <Arrow>
               <img src={arrow} />
             </Arrow>
-            <Page_WriteLost>분실물 등록</Page_WriteLost>
+            <Page_WriteLost>분실물 수정</Page_WriteLost>
           </Page_move>
           <WN_container>
             <Name>
               <Notice_Name>제목</Notice_Name>
-              <Name_container
-                placeholder="제목을 적어주세용"
-              >제목에 대한 깊은 고찰은 항상 사람의 마음을 거지같게 만들죠 </Name_container>
+              <Name_container 
+              placeholder="제목을 적어주세용"
+              defaultValue={"제목에 대한 깊은 고찰은 항상 사람의 마음을 거지같게 만들죠"}>
+              </Name_container>
             </Name>
             <Picture_container>
-                <Picture>
-                    <img src={test} width={150} height={150} />
-                    <Trash_Button><img src= {trashcan} width={50} height={50}/></Trash_Button>
-                </Picture>
-                <Picture>
-                    <img src={test}width={150} height={150}/>
-                    <Trash_Button><img src= {trashcan} width={50} height={50}/></Trash_Button>
-                </Picture>
-                <Picture>
-                    <img src={test} width={150} height={150} opacity/>
-                    <Trash_Button><img src= {trashcan} width={50} height={50}/></Trash_Button>
-                </Picture>
-                
-                
+              <Picture>
+                <img src={test} width={150} height={150} />
+                <Trash_Button>
+                  <img src={trashcan} width={50} height={50} />
+                </Trash_Button>
+              </Picture>
+              <Picture>
+                <img src={test} width={150} height={150} />
+                <Trash_Button>
+                  <img src={trashcan} width={50} height={50} />
+                </Trash_Button>
+              </Picture>
+              <Picture>
+                <img src={test} width={150} height={150} opacity = {50} />
+                <Trash_Button>
+                  <img src={trashcan} width={50} height={50} />
+                </Trash_Button>
+              </Picture>
             </Picture_container>
             <Detail>
               <Notice_Detail>내용</Notice_Detail>
-              <Detail_container
-                type="text"
-                placeholder="내용을 적어주세용"
-              > 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</Detail_container>
+              <Detail_container type="text" placeholder="내용을 적어주세용"
+              defaultValue={"내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용"}
+              >
+              </Detail_container>
             </Detail>
             <Upload_Button>수정하기</Upload_Button>
           </WN_container>
@@ -68,7 +70,6 @@ const Body = styled.div`
   width: 100vw;
   height: 900px;
 `;
-
 
 const Main = styled.div`
   width: 100%;
@@ -95,16 +96,15 @@ const Page_move = styled.div`
 const Page_PostList = styled.span`
   font-size: 18px;
   color: #797979;
-      &:hover{
+  &:hover {
     cursor: pointer;
-
   }
 `;
 
 const Page_WriteLost = styled.div`
   font-size: 18px;
   color: #000000;
-      &:hover{
+  &:hover {
     cursor: pointer;
   }
 `;
@@ -119,14 +119,13 @@ const WN_container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-
 `;
 const Name = styled.div`
-    width: 100%;
-`
+  width: 100%;
+`;
 const Detail = styled.div`
-    width: 100%;
-`
+  width: 100%;
+`;
 
 const Notice_Name = styled.div`
   font-size: 14pt;
@@ -155,34 +154,32 @@ const Picture_container = styled.div`
   margin: 20px 0;
   padding: 20px;
   position: relative;
-`
+`;
 
 const Picture = styled.div`
   width: 113px;
   height: 106px;
   display: flex;
   justify-content: center;
-  &:hover{
+  &:hover {
     filter: opacity(50%);
   }
-
 `;
 
 const Trash_Button = styled.div`
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0px;
-    opacity: 0%;
-    &:hover{
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  opacity: 0%;
+  &:hover {
     cursor: pointer;
     opacity: 100%;
   }
-`
-
+`;
 
 const Notice_Detail = styled.div`
   font-size: 14pt;
@@ -205,17 +202,17 @@ const Detail_container = styled.textarea`
 const Upload_Button = styled.div`
   width: 100%;
   height: 40px;
-  background-color: rgba(102,197,13,0.5);
+  background-color: rgba(102, 197, 13, 0.5);
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 15px;
 
-    &:hover{
+  &:hover {
     background-color: rgb(82, 170, 6);
     cursor: pointer;
   }
-`
+`;
 
-export default Write_Notice;
+export default Modify_Lost;
