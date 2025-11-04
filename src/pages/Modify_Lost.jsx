@@ -26,10 +26,12 @@ const Modify_Lost = () => {
           <WN_container>
             <Name>
               <Notice_Name>제목</Notice_Name>
-              <Name_container 
-              placeholder="제목을 적어주세용"
-              defaultValue={"제목에 대한 깊은 고찰은 항상 사람의 마음을 거지같게 만들죠"}>
-              </Name_container>
+              <Name_container
+                placeholder="제목을 적어주세용"
+                defaultValue={
+                  "제목에 대한 깊은 고찰은 항상 사람의 마음을 거지같게 만들죠"
+                }
+              ></Name_container>
             </Name>
             <Picture_container>
               <Picture>
@@ -45,7 +47,7 @@ const Modify_Lost = () => {
                 </Trash_Button>
               </Picture>
               <Picture>
-                <img src={test} width={150} height={150} opacity = {50} />
+                <img src={test} width={150} height={150} opacity={50} />
                 <Trash_Button>
                   <img src={trashcan} width={50} height={50} />
                 </Trash_Button>
@@ -53,10 +55,13 @@ const Modify_Lost = () => {
             </Picture_container>
             <Detail>
               <Notice_Detail>내용</Notice_Detail>
-              <Detail_container type="text" placeholder="내용을 적어주세용"
-              defaultValue={"내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용"}
-              >
-              </Detail_container>
+              <Detail_container
+                type="text"
+                placeholder="내용을 적어주세용"
+                defaultValue={
+                  "내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용"
+                }
+              ></Detail_container>
             </Detail>
             <Upload_Button>수정하기</Upload_Button>
           </WN_container>
@@ -82,8 +87,6 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  margin: 20px 0;
 `;
 const Page_move = styled.div`
   width: 24%;
@@ -91,6 +94,7 @@ const Page_move = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  margin-bottom: 49px;
 `;
 
 const Page_PostList = styled.span`
@@ -141,6 +145,10 @@ const Name_container = styled.textarea`
   font-size: 18px;
   display: flex;
   padding: 10px;
+  resize: none;
+    ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Picture_container = styled.div`

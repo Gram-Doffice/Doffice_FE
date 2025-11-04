@@ -64,8 +64,6 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  margin: 20px 0;
 `;
 const Page_move = styled.div`
   width: 24%;
@@ -73,6 +71,7 @@ const Page_move = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  margin-bottom: 49px;
 `;
 
 const Page_PostList = styled.span`
@@ -111,6 +110,9 @@ const Name_container = styled.textarea`
   font-size: 18px;
   padding: 10px;
   resize: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const Notice_Detail = styled.div`
   font-size: 14pt;
