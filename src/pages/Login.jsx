@@ -10,7 +10,7 @@ const Login = () => {
   return (
     <Body>
       <Header/>
-      <LogIn_Box>
+      <Login_Box>
         <Login_Text>로그인</Login_Text>
         <Id_Input_Box
           type="text"
@@ -24,7 +24,7 @@ const Login = () => {
           <img src={eye} />
         </Password>
         <LogIn_Button>로그인</LogIn_Button>
-      </LogIn_Box>
+      </Login_Box>
     </Body>
   );
 };
@@ -35,7 +35,7 @@ const Body = styled.div`
 `;
 
 
-const LogIn_Box = styled.div`
+const Login_Box = styled.div`
   width: 26%;
   height: 44%;
   position: absolute;
