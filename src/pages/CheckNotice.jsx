@@ -10,18 +10,19 @@ const CheckNotice = () => {
 
   return (
     <Body>
-      <Header/>
+      <Header />
       <SecondContainer>
         <MainBox>
           <TextList>
             <MoveListText onClick={() => navigate("/notice-list")}>
               공지사항 목록
             </MoveListText>
-            <img src={Picture} />
+            <img src={Picture} alt="arrow" />
             <MoveLostText onClick={() => navigate("/check-notice")}>
               공지사항 상세 확인
             </MoveLostText>
           </TextList>
+
           <TitleText>제목이 들어갑니다.</TitleText>
 
           <DetailBox>
@@ -37,6 +38,7 @@ const CheckNotice = () => {
             </BtnBox>
             <DateText>2025 / 10 / 24</DateText>
           </DetailBox>
+
           <ContentBox>
             <hr />
             <ContentText>
@@ -44,17 +46,7 @@ const CheckNotice = () => {
               치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
               치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
               치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일
+              치킨!
             </ContentText>
           </ContentBox>
         </MainBox>
@@ -63,21 +55,46 @@ const CheckNotice = () => {
   );
 };
 
+/* ================= styled components ================= */
+
 const Body = styled.div`
   width: 100%;
-  height: 100vh;
-`;
+  min-height: 100vh;
+  margin-bottom: 120px;
 
+  @media (max-width: 768px) {
+    margin-bottom: 80px;
+  }
+`;
 
 const SecondContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    padding: 20px;
+  }
 `;
 
 const MainBox = styled.div`
   width: 63%;
-  height: 62%;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    width: 95%;
+  }
 `;
 
 const TextList = styled.div`
@@ -85,11 +102,21 @@ const TextList = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 20px;
-  margin-bottom: 67px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
 
   img {
     width: 20px;
     height: 20px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 8px;
   }
 `;
 
@@ -97,30 +124,67 @@ const MoveListText = styled.span`
   font-size: 18px;
   color: #999999;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const MoveLostText = styled.span`
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
-const TitleText = styled.span`
+const TitleText = styled.h1`
   font-size: 30px;
+  margin: 0;
+  color: #222;
+
+  @media (max-width: 1024px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 22px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
 `;
 
 const DetailBox = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 50px;
+  margin-top: 40px;
   justify-content: space-between;
   margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 25px;
+    gap: 6px;
+  }
 `;
 
 const BtnBox = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    gap: 10px;
+  }
 `;
 
 const EditBtn = styled.button`
@@ -128,25 +192,26 @@ const EditBtn = styled.button`
   border: 1px solid #52aa06;
   color: #52aa06;
   border-radius: 5px;
-  padding: 14px 18px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
 
   &:hover {
     background-color: #52aa06;
-    border: 1px solid #52aa06;
     color: white;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
   }
 `;
 
-const DeleteBtn = styled.button`
-  background-color: white;
+const DeleteBtn = styled(EditBtn)`
   border: 1px solid #ff4646;
   color: #ff4646;
-  border-radius: 5px;
-  padding: 14px 18px;
 
   &:hover {
     background-color: #ff4646;
-    border: 1px solid #ff4646;
     color: white;
   }
 `;
@@ -155,6 +220,10 @@ const HashTag = styled.span`
   font-size: 18px;
   font-weight: bold;
   color: #555555;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const DateText = styled.span`
@@ -162,23 +231,38 @@ const DateText = styled.span`
   font-size: 18px;
   color: #555555;
   font-weight: bold;
-`;
 
-const ContentText = styled.span`
-  font-size: 16px;
+  @media (max-width: 768px) {
+    font-size: 16px;
+    align-self: flex-start;
+  }
 `;
 
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
+  margin-top: 20px;
+
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+  }
 `;
 
-const Img = styled.img`
-  width: 19%;
-  margin-right: 23px;
-`;
+const ContentText = styled.p`
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  word-break: keep-all;
 
-const ImgBox = styled.div``;
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+`;
 
 export default CheckNotice;
