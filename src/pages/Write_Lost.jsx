@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import arrow from "../assets/arrow.svg";
 import camera from "../assets/camera.svg";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 const Write_Notice = () => {
 
@@ -54,15 +55,7 @@ const Body = styled.div`
   height: 900px;
 `;
 
-const Header = styled.div`
-  width: 100%;
-  height: 8%;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 49px;
-`;
+
 
 
 const Main = styled.div`
