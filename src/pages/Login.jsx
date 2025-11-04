@@ -37,7 +37,7 @@ const Body = styled.div`
 
 const Login_Box = styled.div`
   width: 26%;
-  height: 44%;
+  height: 500px;
   position: absolute;
   top: 28%;
   left: 37%;
