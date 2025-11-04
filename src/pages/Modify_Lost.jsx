@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 import trashcan from "../assets/trash-solid (1) 1.svg";
 import Header from "../components/Header";
 
+<<<<<<< Updated upstream
 const Modify_Lost = () => {
+=======
+const Write_Notice = () => {
+>>>>>>> Stashed changes
   const navigate = useNavigate();
 
   return (
@@ -26,9 +30,14 @@ const Modify_Lost = () => {
           <WN_container>
             <Name>
               <Notice_Name>제목</Notice_Name>
+<<<<<<< Updated upstream
               <Name_container 
               placeholder="제목을 적어주세용"
               defaultValue={"제목에 대한 깊은 고찰은 항상 사람의 마음을 거지같게 만들죠"}>
+=======
+              <Name_container placeholder="제목을 적어주세용">
+                제목에 대한 깊은 고찰은 항상 사람의 마음을 거지같게 만들죠{" "}
+>>>>>>> Stashed changes
               </Name_container>
             </Name>
             <Picture_container>
@@ -45,7 +54,11 @@ const Modify_Lost = () => {
                 </Trash_Button>
               </Picture>
               <Picture>
+<<<<<<< Updated upstream
                 <img src={test} width={150} height={150} opacity = {50} />
+=======
+                <img src={test} width={150} height={150} opacity />
+>>>>>>> Stashed changes
                 <Trash_Button>
                   <img src={trashcan} width={50} height={50} />
                 </Trash_Button>
@@ -53,9 +66,15 @@ const Modify_Lost = () => {
             </Picture_container>
             <Detail>
               <Notice_Detail>내용</Notice_Detail>
+<<<<<<< Updated upstream
               <Detail_container type="text" placeholder="내용을 적어주세용"
               defaultValue={"내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용"}
               >
+=======
+              <Detail_container type="text" placeholder="내용을 적어주세용">
+                {" "}
+                내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용
+>>>>>>> Stashed changes
               </Detail_container>
             </Detail>
             <Upload_Button>수정하기</Upload_Button>

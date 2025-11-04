@@ -4,7 +4,11 @@ import arrow from "../assets/arrow.svg";
 import { Navigate, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
+<<<<<<< Updated upstream
 const Modify_Notice = () => {
+=======
+const Write_Notice = () => {
+>>>>>>> Stashed changes
   const navigate = useNavigate();
 
   return (
@@ -24,6 +28,7 @@ const Modify_Notice = () => {
           <WN_container>
             <Name>
               <Notice_Name>제목</Notice_Name>
+<<<<<<< Updated upstream
               <Name_container
                 type="text"
                 placeholder="제목을 적어주세용"
@@ -39,6 +44,20 @@ const Modify_Notice = () => {
                 placeholder="내용을 적어주세용"
                 defaultValue={"대충 그긴거/"}
               ></Detail_container>
+=======
+              <Name_container type="text" placeholder="제목을 적어주세용">
+                제목이란 무엇인가 제목의 사전적 의미는 책이나 글따위를
+                이야기할때 그것의 주된 이름으로 주로 책, 시, 글 등 문학적인
+                부분이나 논문, 기타 글들의 주 이름이 된다 이라면 과연 내 이름
+                또한 그럴까
+              </Name_container>
+            </Name>
+            <Detail>
+              <Notice_Detail>내용</Notice_Detail>
+              <Detail_container type="text" placeholder="내용을 적어주세용">
+                대충 그긴거/
+              </Detail_container>
+>>>>>>> Stashed changes
             </Detail>
             <Upload_Button>수정하기</Upload_Button>
           </WN_container>
