@@ -176,7 +176,7 @@ const Notice_Name = styled.div`
   }
 `;
 
-const Name_container = styled.textarea`
+const Name_container = styled.input`
   width: 100%;
   height: 50px;
   background-color: #eeeeee;
@@ -215,7 +215,7 @@ const Notice_Detail = styled.div`
 
 const Detail_container = styled.textarea`
   width: 100%;
-  height: 550px;
+  height: 460px;
   background-color: #eeeeee;
   border: none;
   display: flex;
