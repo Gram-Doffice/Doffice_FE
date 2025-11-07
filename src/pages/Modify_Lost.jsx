@@ -15,7 +15,7 @@ const Modify_Lost = () => {
       <Main>
         <Container>
           <Page_move>
-            <Page_PostList onClick={() => navigate("/check-lost")}>분실물 상세 확인</Page_PostList>
+            <Page_PostList onClick={() => navigate("/")}>게시글 목록</Page_PostList>
             <Arrow>
               <img src={arrow} alt="arrow" />
             </Arrow>
@@ -26,9 +26,9 @@ const Modify_Lost = () => {
             <Name>
               <Notice_Name>제목</Notice_Name>
               <Name_container
-                placeholder="제목을 적어주세용"
+                placeholder="제목을 입력해주세요"
                 defaultValue={
-                  "제목에 대한 깊은 고찰은 항상 사람의 마음을 거지같게 만들죠"
+                  "제목에 대한 깊은 고찰은 항상 사람의 마음을 심란하게 만들죠. 마치 이를테면 폭풍의 언덕을 쓴 저자는 제목을 짓기위해 삼일밤낮을 지새웠다고 전해진답니다. 사실 거짓말이에용"
                 }
               ></Name_container>
             </Name>
@@ -47,7 +47,7 @@ const Modify_Lost = () => {
             <Detail>
               <Notice_Detail>내용</Notice_Detail>
               <Detail_container
-                placeholder="내용을 적어주세용"
+                placeholder="내용을 입력해주세요"
                 defaultValue={"내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용"}
               ></Detail_container>
             </Detail>
@@ -104,9 +104,7 @@ const Container = styled.div`
 `;
 
 const Page_move = styled.div`
-
   width: 30%;
-
   height: 3%;
   display: flex;
   align-items: center;
