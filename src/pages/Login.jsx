@@ -140,7 +140,10 @@ const Password = styled.div`
   }
 `;
 
-const Eye_Icon = styled.div``
+const Eye_Icon = styled.div`
+    display: flex;
+    align-items: center;
+`
 
 const Password_Input_Box = styled.input`
   width: 95%;

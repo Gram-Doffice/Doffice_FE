@@ -186,7 +186,7 @@ const Notice_Name = styled.div`
   }
 `;
 
-const Name_container = styled.textarea`
+const Name_container = styled.input`
   width: 100%;
   height: 50px;
   background-color: #eeeeee;
@@ -194,6 +194,7 @@ const Name_container = styled.textarea`
   margin-bottom: 10px;
   font-size: 18px;
   display: flex;
+  align-items: center;
   padding: 10px;
   resize: none;
   border-radius: 5px;
@@ -230,33 +231,17 @@ const Picture_container = styled.div`
   }
 `;
 
-const Picture = styled.div`
-  position: relative;
-  width: 113px;
-  height: 106px;
-  display: flex;
-  justify-content: center;
-
-  &:hover {
-    filter: opacity(50%);
-  }
-
-  @media (max-width: 600px) {
-    width: 90px;
-    height: 90px;
-  }
-`;
-
 const Trash_Button = styled.div`
   position: absolute;
   width: 150px;
   height: 150px;
   display: flex;
+  top: 0px;
   justify-content: center;
   align-items: center;
-  top: 0px;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
+  
 
   &:hover {
     cursor: pointer;
@@ -270,9 +255,37 @@ const Trash_Button = styled.div`
     img {
       width: 30px;
       height: 30px;
+      position: absolute;
     }
   }
 `;
+
+const Picture = styled.div`
+  position: relative;
+  width: 113px;
+  height: 106px;
+  display: flex;
+  justify-content: center;
+
+&:hover > img {
+    /* 첫 번째 자식인 <img>에만 opacity 적용 */
+    opacity: 0.5; 
+    transition: opacity 0.2s ease; /* 부드러운 전환 추가 (선택 사항) */
+  }
+
+&:hover > div {
+    /* Trash_Button이 보이게 함 (position: absolute로 Picture 내에 있습니다) */
+    opacity: 1;
+  }
+
+
+  @media (max-width: 600px) {
+    width: 90px;
+    height: 90px;
+  }
+`;
+
+
 
 const Notice_Detail = styled.div`
   font-size: 14pt;
