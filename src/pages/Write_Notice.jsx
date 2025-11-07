@@ -22,14 +22,14 @@ const Write_Notice = () => {
               <Notice_Name>제목</Notice_Name>
               <Name_container
                 type="text"
-                placeholder="제목을 적어주세용"
+                placeholder="제목을 입력해주세요"
               ></Name_container>
             </Name>
             <Detail>
               <Notice_Detail>내용</Notice_Detail>
               <Detail_container
                 type="text"
-                placeholder="내용을 적어주세용"
+                placeholder="내용을 입력해주세요"
               ></Detail_container>
             </Detail>
             <Upload_Button>올리기</Upload_Button>
@@ -58,7 +58,7 @@ const Container = styled.div`
     flex-direction: column;
 `
 const Page_move = styled.div`
-    width: 24%;
+    width: 30%;
     height: 3%;
     display: flex;
     align-items: center;

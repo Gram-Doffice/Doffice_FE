@@ -26,7 +26,7 @@ const Modify_Notice = () => {
               <Notice_Name>제목</Notice_Name>
               <Name_container
                 type="text"
-                placeholder="제목을 적어주세용"
+                placeholder="제목을 입력해주세요"
                 defaultValue={
                   "제목이란 무엇인가 제목의 사전적 의미는 책이나 글따위를 이야기할때 그것의 주된 이름으로 주로 책, 시, 글 등 문학적인 부분이나 논문, 기타 글들의 주 이름이 된다 이라면 과연 내 이름 또한 그럴까"
                 }
@@ -36,7 +36,7 @@ const Modify_Notice = () => {
               <Notice_Detail>내용</Notice_Detail>
               <Detail_container
                 type="text"
-                placeholder="내용을 적어주세용"
+                placeholder="내용을 입력해주세요"
                 defaultValue={"대충 그긴거/"}
               ></Detail_container>
             </Detail>

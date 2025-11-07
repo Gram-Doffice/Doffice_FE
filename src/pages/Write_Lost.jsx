@@ -24,13 +24,13 @@ const Write_Notice = () => {
           <WN_container>
             <Name>
               <Notice_Name>제목</Notice_Name>
-              <Name_container type="text" placeholder="제목을 적어주세요" />
+              <Name_container type="text" placeholder="제목을 입력해주세요" />
             </Name>
 
             <Picture_container>
               사진 추가하기
               <Picture>
-                <img src={camera} width={90} height={90} alt="camera" />
+                <img src={camera} width={80} height={80} alt="camera" />
               </Picture>
             </Picture_container>
 
@@ -38,7 +38,7 @@ const Write_Notice = () => {
               <Notice_Detail>내용</Notice_Detail>
               <Detail_container
                 type="text"
-                placeholder="내용을 적어주세요"
+                placeholder="내용을 입력해주세요"
               ></Detail_container>
             </Detail>
 
@@ -84,7 +84,7 @@ const Container = styled.div`
 `;
 
 const Page_move = styled.div`
-  width: 24%;
+  width: 30%;
   height: 3%;
   display: flex;
   align-items: center;
@@ -175,8 +175,8 @@ const Name_container = styled.input`
 `;
 
 const Picture_container = styled.div`
-  width: 15%;
-  height: 24%;
+  width: 170px;
+  height: 170px;
   border: 4px dashed #7b7b7b;
   border-radius: 10px;
   font-size: 18px;
@@ -221,7 +221,7 @@ const Notice_Detail = styled.div`
 
 const Detail_container = styled.textarea`
   width: 100%;
-  height: 260px;
+  height: 200px;
   background-color: #eeeeee;
   border: none;
   display: flex;
