@@ -166,7 +166,6 @@ const DetailBox = styled.div`
   flex-direction: row;
   margin-top: 40px;
   justify-content: space-between;
-  margin-bottom: 15px;
   flex-wrap: wrap;
   gap: 10px;
 
@@ -303,6 +302,5 @@ const ContentText = styled.p`
     font-size: 14px;
   }
 `;
-
 
 export default CheckLost;
