@@ -41,7 +41,7 @@ const Write_Notice = () => {
 
 const Body = styled.div`
   width: 100%;
-  height: 900px;
+  height: 800px;
 `;
 
 
@@ -109,7 +109,7 @@ const Notice_Detail = styled.div`
 `
 const Detail_container = styled.textarea`
     width: 100%;
-    height: 550px;
+    height: 400px;
     background-color: #EEEEEE;
     border: none;
     display: flex;
