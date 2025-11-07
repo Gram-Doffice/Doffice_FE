@@ -60,7 +60,7 @@ const CheckNotice = () => {
 const Body = styled.div`
   width: 100%;
   min-height: 100vh;
-  margin-bottom: 120px;
+  margin-bottom: 50px;
 
   @media (max-width: 768px) {
     margin-bottom: 80px;
