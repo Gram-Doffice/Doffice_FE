@@ -13,8 +13,8 @@ const Modify_Notice = () => {
       <Main>
         <Container>
           <Page_move>
-            <Page_PostList onClick={() => navigate("/")}>
-              게시글 목록
+            <Page_PostList onClick={() => navigate("/check-notice")}>
+              공지사항 상세 확인
             </Page_PostList>
             <Arrow>
               <img src={arrow} />
@@ -90,6 +90,7 @@ const Container = styled.div`
 
 const Page_move = styled.div`
   width: 35%;
+
   display: flex;
   align-items: center;
   gap: 20px;
