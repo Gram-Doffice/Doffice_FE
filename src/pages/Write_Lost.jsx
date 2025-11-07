@@ -114,7 +114,7 @@ const Page_PostList = styled.span`
 const Page_WriteLost = styled.div`
   font-size: 18px;
   color: #000000;
-
+  font-weight: 700;
   &:hover {
     cursor: pointer;
   }
