@@ -37,7 +37,7 @@ const Modify_Notice = () => {
               <Detail_container
                 type="text"
                 placeholder="내용을 입력해주세요"
-                defaultValue={"대충 그긴거/"}
+                defaultValue={"내일부터 주말 저녁점호는 23시 50분에 각자 호실앞에서 진행합니다 야후!"}
               ></Detail_container>
             </Detail>
             <Upload_Button>수정하기</Upload_Button>
@@ -126,6 +126,7 @@ const Page_PostList = styled.span`
 const Page_WriteNotice = styled.div`
   font-size: 18px;
   color: #000000;
+    font-weight: 700;
   cursor: pointer;
 
   @media (max-width: 1024px) {

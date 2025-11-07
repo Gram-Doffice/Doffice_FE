@@ -135,6 +135,7 @@ const Page_PostList = styled.span`
 const Page_WriteLost = styled.div`
   font-size: 18px;
   color: #000000;
+    font-weight: 700;
   cursor: pointer;
 
   @media (max-width: 600px) {
