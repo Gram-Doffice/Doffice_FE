@@ -59,6 +59,8 @@ const CheckLost = () => {
   );
 };
 
+/* ================= styled components ================= */
+
 const Body = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -301,5 +303,6 @@ const ContentText = styled.p`
     font-size: 14px;
   }
 `;
+
 
 export default CheckLost;
