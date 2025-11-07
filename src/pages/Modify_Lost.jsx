@@ -15,7 +15,7 @@ const Modify_Lost = () => {
       <Main>
         <Container>
           <Page_move>
-            <Page_PostList onClick={() => navigate("/check-lost")}>분실물 상세 확인</Page_PostList>
+            <Page_PostList onClick={() => navigate("/")}>게시글 목록</Page_PostList>
             <Arrow>
               <img src={arrow} alt="arrow" />
             </Arrow>
@@ -47,7 +47,7 @@ const Modify_Lost = () => {
             <Detail>
               <Notice_Detail>내용</Notice_Detail>
               <Detail_container
-                placeholder="내용을 적어주세용"
+                placeholder="내용을 입력해주세요"
                 defaultValue={"내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용"}
               ></Detail_container>
             </Detail>
@@ -104,9 +104,7 @@ const Container = styled.div`
 `;
 
 const Page_move = styled.div`
-
   width: 30%;
-
   height: 3%;
   display: flex;
   align-items: center;
