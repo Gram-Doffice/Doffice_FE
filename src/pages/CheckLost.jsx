@@ -304,4 +304,5 @@ const ContentText = styled.p`
   }
 `;
 
+
 export default CheckLost;
