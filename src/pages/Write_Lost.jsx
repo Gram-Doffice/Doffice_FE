@@ -55,9 +55,6 @@ const Body = styled.div`
   height: 900px;
 `;
 
-
-
-
 const Main = styled.div`
   width: 100%;
   height: 92%;
