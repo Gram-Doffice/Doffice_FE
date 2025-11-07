@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import eye from "../assets/eye.svg";
 import Header from "../components/Header";
 
 const Login = () => {
+    const [showPw, setShowPw] = useState(false);
+
+
   return (
     <Body>
       <Header />
@@ -15,10 +18,16 @@ const Login = () => {
         ></Id_Input_Box>
         <Password>
           <Password_Input_Box
-            type="password"
-            placeholder="비밀번호를 입력해주세요"
+          type={showPw ? "text" : "password"}
+          placeholder="비밀번호를 입력해주세요."
           ></Password_Input_Box>
-          <img src={eye} alt="비밀번호 보기" />
+          <Eye_Icon
+              type="button"
+              onClick={() => setShowPw((v) => !v)}
+              title={showPw ? "숨기기" : "보기"}>
+            <img src={eye} alt="비밀번호 보기" />
+          </Eye_Icon>
+          
         </Password>
         <LogIn_Button>로그인</LogIn_Button>
       </Login_Box>
@@ -130,6 +139,8 @@ const Password = styled.div`
     }
   }
 `;
+
+const Eye_Icon = styled.div``
 
 const Password_Input_Box = styled.input`
   width: 95%;
