@@ -89,7 +89,7 @@ const Container = styled.div`
 `;
 
 const Page_move = styled.div`
-  width: 24%;
+  width: 35%;
   display: flex;
   align-items: center;
   gap: 20px;
