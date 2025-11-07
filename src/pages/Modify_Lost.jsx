@@ -104,7 +104,7 @@ const Container = styled.div`
 `;
 
 const Page_move = styled.div`
-  width: 24%;
+  width: 27%;
   height: 3%;
   display: flex;
   align-items: center;
