@@ -123,7 +123,7 @@ const SecondContainer = styled.div`
 `;
 
 const MainBox = styled.div`
-  width: 63%;
+  width: 1020px;
   height: 100%;
 
   @media (max-width: 1024px) {
@@ -231,7 +231,6 @@ const PostButton = styled.button`
 
 const AllListBox = styled.div`
   display: flex;
-  flex-direction: row;
   gap: 60px;
   margin-top: 35px;
   flex-wrap: wrap;
@@ -248,7 +247,7 @@ const AllListBox = styled.div`
 `;
 
 const ListBox = styled.div`
-  width: 30%;
+  width: 300px;
   height: 25vh;
   display: flex;
   flex-direction: column;

@@ -161,7 +161,6 @@ const ListText = styled.span`
 
 const ListInputBox = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-top: 30px;
@@ -176,7 +175,6 @@ const ListInputBox = styled.div`
 
 const CatBox = styled.div`
   display: flex;
-  flex-direction: row;
   gap: 15px;
   font-size: 18px;
   flex-wrap: wrap;
@@ -239,7 +237,6 @@ const PostButton = styled.button`
 
 const AllListBox = styled.div`
   display: flex;
-  flex-direction: row;
   gap: 60px;
   margin-top: 35px;
   flex-wrap: wrap;
@@ -256,7 +253,7 @@ const AllListBox = styled.div`
 `;
 
 const ListBox = styled.div`
-  width: 30%;
+  width: 300px;
   height: 25vh;
   display: flex;
   flex-direction: column;
