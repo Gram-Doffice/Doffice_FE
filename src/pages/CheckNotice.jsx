@@ -18,7 +18,7 @@ const CheckNotice = () => {
               공지사항 목록
             </MoveListText>
             <img src={Picture} alt="arrow" />
-            <MoveLostText onClick={() => navigate("/check-notice")}>
+            <MoveLostText onClick={() => navigate("/check-lost")}>
               공지사항 상세 확인
             </MoveLostText>
           </TextList>
