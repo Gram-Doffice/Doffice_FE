@@ -286,6 +286,10 @@ const TitleText = styled.span`
   font-size: 22px;
   font-weight: bold;
   align-self: center;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   @media (max-width: 768px) {
     font-size: 20px;
