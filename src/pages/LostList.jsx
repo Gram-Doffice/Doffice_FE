@@ -87,7 +87,7 @@ const LostList = () => {
 
           <AllListBox>
             {posts.map((post) => (
-              <ListBox key={post.id} onClick={() => navigate("/check-notice")}>
+              <ListBox key={post.id} onClick={() => navigate("/check-lost")}>
                 <TitleText>{post.title}</TitleText>
                 <DateText>{post.date}</DateText>
               </ListBox>
@@ -99,7 +99,7 @@ const LostList = () => {
   );
 };
 
-/* ================= styled components ================= */
+/* ========== styled components (반응형 적용) ========== */
 
 const Body = styled.div`
   width: 100%;
@@ -280,6 +280,8 @@ const TitleText = styled.span`
   font-size: 22px;
   font-weight: bold;
   align-self: center;
+  text-align: center;
+  width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -296,7 +298,6 @@ const TitleText = styled.span`
 const DateText = styled.span`
   font-size: 16px;
   font-weight: bold;
-  align-self: flex-end;
   color: #555555;
   position: absolute;
   bottom: 10%;

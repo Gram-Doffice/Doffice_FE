@@ -286,6 +286,7 @@ const TitleText = styled.span`
   font-size: 22px;
   font-weight: bold;
   align-self: center;
+  text-align: center;
   width: 200px;
   white-space: nowrap;
   overflow: hidden;
