@@ -1,10 +1,21 @@
 import React from "react";
 import styled from "@emotion/styled";
 import arrow from "../assets/arrow.svg";
-import test from "../assets/Qkzb.jpg";
 import { useNavigate } from "react-router-dom";
 import trashcan from "../assets/trash-solid (1) 1.svg";
 import Header from "../components/Header";
+
+
+export const posts = [
+    {
+      id: 1,
+      title: "겨울 감성 카페 추천",
+      content:
+        "따뜻한 커피와 감성 인테리어로 힐링할 수 있는 서울의 겨울 카페를 소개합니다.",
+      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      date: "2025-11-07",
+    }
+  ];
 
 const Modify_Lost = () => {
   const navigate = useNavigate();
@@ -25,18 +36,20 @@ const Modify_Lost = () => {
           <WN_container>
             <Name>
               <Notice_Name>제목</Notice_Name>
-              <Name_container
-                placeholder="제목을 입력해주세요"
-                defaultValue={
-                  "제목에 대한 깊은 고찰은 항상 사람의 마음을 심란하게 만들죠. 마치 이를테면 폭풍의 언덕을 쓴 저자는 제목을 짓기위해 삼일밤낮을 지새웠다고 전해진답니다. 사실 거짓말이에용"
-                }
-              ></Name_container>
+              {posts.map((post) => (
+                <Name_container
+                  key={post.id}
+                  type="text"
+                  placeholder="제목을 입력해주세요"
+                  defaultValue={post.title}
+                ></Name_container>
+              ))}
             </Name>
 
             <Picture_container>
               {[1, 2, 3].map((n) => (
                 <Picture key={n}>
-                  <img src={test} width={150} height={150} alt="uploaded" />
+                  <img src={posts[0].image} width={150} height={150} alt="uploaded" />
                   <Trash_Button>
                     <img src={trashcan} width={50} height={50} alt="delete" />
                   </Trash_Button>
@@ -46,10 +59,17 @@ const Modify_Lost = () => {
 
             <Detail>
               <Notice_Detail>내용</Notice_Detail>
-              <Detail_container
+              {posts.map((post) => (
+                <Detail_container
+                key={post.id}
+                type="text"
                 placeholder="내용을 입력해주세요"
-                defaultValue={"내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용"}
+                defaultValue={
+                  post.content
+                }
               ></Detail_container>
+              ))}
+              
             </Detail>
 
             <Upload_Button>수정하기</Upload_Button>

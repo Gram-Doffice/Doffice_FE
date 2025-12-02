@@ -4,6 +4,17 @@ import arrow from "../assets/arrow.svg";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
+  export const posts = [
+    {
+      id: 1,
+      title: "겨울 감성 카페 추천",
+      content:
+        "따뜻한 커피와 감성 인테리어로 힐링할 수 있는 서울의 겨울 카페를 소개합니다.",
+      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      date: "2025-11-07",
+    }
+  ];
+
 const Modify_Notice = () => {
   const navigate = useNavigate();
 
@@ -24,21 +35,28 @@ const Modify_Notice = () => {
           <WN_container>
             <Name>
               <Notice_Name>제목</Notice_Name>
-              <Name_container
-                type="text"
-                placeholder="제목을 입력해주세요"
-                defaultValue={
-                  "제목이란 무엇인가 제목의 사전적 의미는 책이나 글따위를 이야기할때 그것의 주된 이름으로 주로 책, 시, 글 등 문학적인 부분이나 논문, 기타 글들의 주 이름이 된다 이라면 과연 내 이름 또한 그럴까"
-                }
-              ></Name_container>
+              {posts.map((post) => (
+                <Name_container
+                  key={post.id}
+                  type="text"
+                  placeholder="제목을 입력해주세요"
+                  defaultValue={post.title}
+                ></Name_container>
+              ))}
             </Name>
             <Detail>
               <Notice_Detail>내용</Notice_Detail>
-              <Detail_container
+              {posts.map((post) => (
+                <Detail_container
+                key={post.id}
                 type="text"
                 placeholder="내용을 입력해주세요"
-                defaultValue={"내일부터 주말 저녁점호는 23시 50분에 각자 호실앞에서 진행합니다 야후!"}
+                defaultValue={
+                  post.content
+                }
               ></Detail_container>
+              ))}
+              
             </Detail>
             <Upload_Button>수정하기</Upload_Button>
           </WN_container>
@@ -126,7 +144,7 @@ const Page_PostList = styled.span`
 const Page_WriteNotice = styled.div`
   font-size: 18px;
   color: #000000;
-    font-weight: 700;
+  font-weight: 700;
   cursor: pointer;
 
   @media (max-width: 1024px) {
