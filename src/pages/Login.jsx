@@ -4,8 +4,23 @@ import eye from "../assets/eye.svg";
 import Header from "../components/Header";
 
 const Login = () => {
-    const [showPw, setShowPw] = useState(false);
+  const [showPw, setShowPw] = useState(false);
 
+  const [password, setPassword] = useState("");
+  const [id, setId] = useState("");
+
+  const handleSubmit = async () => {
+    if (!password && !id) {
+      alert("아이디와 비밀번호를 입력해주세요");
+      return;
+    } else if (!password) {
+      alert("비밀번호를 입력해주세요");
+      return;
+    } else if (!id) {
+      alert("아이디를 입력해주세요");
+      return;
+    }
+  };
 
   return (
     <Body>
@@ -15,21 +30,25 @@ const Login = () => {
         <Id_Input_Box
           type="text"
           placeholder="아이디를 입력해주세요"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
         ></Id_Input_Box>
         <Password>
           <Password_Input_Box
-          type={showPw ? "text" : "password"}
-          placeholder="비밀번호를 입력해주세요."
+            type={showPw ? "text" : "password"}
+            placeholder="비밀번호를 입력해주세요."
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           ></Password_Input_Box>
           <Eye_Icon
-              type="button"
-              onClick={() => setShowPw((v) => !v)}
-              title={showPw ? "숨기기" : "보기"}>
+            type="button"
+            onClick={() => setShowPw((v) => !v)}
+            title={showPw ? "숨기기" : "보기"}
+          >
             <img src={eye} alt="비밀번호 보기" />
           </Eye_Icon>
-          
         </Password>
-        <LogIn_Button>로그인</LogIn_Button>
+        <LogIn_Button onClick={handleSubmit}>로그인</LogIn_Button>
       </Login_Box>
     </Body>
   );
@@ -141,9 +160,9 @@ const Password = styled.div`
 `;
 
 const Eye_Icon = styled.div`
-    display: flex;
-    align-items: center;
-`
+  display: flex;
+  align-items: center;
+`;
 
 const Password_Input_Box = styled.input`
   width: 95%;
