@@ -9,3 +9,18 @@ const publicApi = axios.create({
 });
 
 export default publicApi;
+
+
+async function login() {
+  try {
+    const response = await publicApi.post("/login", {
+      username: "ThanksToApple",
+      password: "qwer1234",
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+login();
