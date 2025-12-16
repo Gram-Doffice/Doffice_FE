@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import eye from "../assets/eye.svg";
 import Header from "../components/Header";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../api/login.api";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [showPw, setShowPw] = useState(false);
 
   const [password, setPassword] = useState("");
@@ -19,6 +22,23 @@ const Login = () => {
     } else if (!id) {
       alert("아이디를 입력해주세요");
       return;
+    }
+
+    const requestBody = {
+      username: id,
+      password: password,
+    };
+
+    try {
+      const response = await loginUser(requestBody);
+      const accessToken = response.token;
+      localStorage.setItem("accessToken", accessToken);
+      console.log("로그인 성공!", response);
+      alert("로그인 성공!");
+      navigate("/notice-list");
+    } catch (error) {
+      console.error("로그인 실패:", error);
+      alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
     }
   };
 
