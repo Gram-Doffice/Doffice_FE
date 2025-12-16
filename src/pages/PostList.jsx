@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-import getAllNotice from "../api/notice.api";
+// import getAllNotice from "../api/notice.api";
 
 export const posts = [
   {
@@ -44,12 +44,12 @@ const PostList = () => {
   const [isOwn, setIsOwn] = useState(false);
 
   //게시글 목록 조회
-  getAllNotice();
+  // getAllNotice();
 
-  const handleClick = (path) => {
-    setActive(path);
-    navigate(path);
-  };
+  // const handleClick = (path) => {
+  //   setActive(path);
+  //   navigate(path);
+  // };
 
   return (
     <Body>

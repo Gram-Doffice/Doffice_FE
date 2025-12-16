@@ -26,7 +26,7 @@ const Login = () => {
 
     const requestBody = {
       username: id,
-      password: password,
+      password: password
     };
 
     try {
