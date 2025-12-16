@@ -8,9 +8,24 @@ const publicApi = axios.create({
   },
 });
 
- 
-)
+publicApi.interceptors.request.use((config) => {
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    config.headers = config.headers ?? {};
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+publicApi.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      localStorage.removeItem("accessToken");
+      window.location.href = "/login";
+      return Promise.reject(error);
+    }
+  }
+);
 
 export default publicApi;
-
-
