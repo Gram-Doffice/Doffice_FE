@@ -232,80 +232,71 @@ const Name_container = styled.input`
 
 const Picture_container = styled.div`
   width: 100%;
-  height: 24%;
+  min-height: 150px; 
   border-radius: 10px;
   display: flex;
+  flex-wrap: wrap; 
   align-items: center;
-  gap: 100px;
+  gap: 20px; 
   margin: 20px 0;
-  padding: 20px;
+  padding: 10px 0;
 
-  @media (max-width: 1024px) {
-    gap: 50px;
+  @media (max-width: 768px) {
+    justify-content: flex-start; 
+    gap: 15px;
   }
 
   @media (max-width: 600px) {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 10px 0;
+    justify-content: center; /* 아주 작은 모바일에서는 중앙 정렬 (선택 사항) */
   }
 `;
 
 const Trash_Button = styled.div`
   position: absolute;
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   display: flex;
-  top: 0px;
   justify-content: center;
   align-items: center;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
-  
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
     opacity: 1;
   }
 
-  @media (max-width: 600px) {
-    width: 90px;
-    height: 90px;
-
-    img {
-      width: 30px;
-      height: 30px;
-      position: absolute;
-    }
+  img {
+    width: 40px !important; 
+    height: 40px !important;
   }
 `;
 
 const Picture = styled.div`
   position: relative;
-  width: 113px;
-  height: 106px;
-  display: flex;
-  justify-content: center;
+  width: 150px; 
+  height: 150px;
+  flex-shrink: 0;
 
-&:hover > img {
-    /* 첫 번째 자식인 <img>에만 opacity 적용 */
-    opacity: 0.5; 
-    transition: opacity 0.2s ease; /* 부드러운 전환 추가 (선택 사항) */
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
   }
 
-&:hover > div {
-    /* Trash_Button이 보이게 함 (position: absolute로 Picture 내에 있습니다) */
-    opacity: 1;
+  &:hover > img {
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
   }
 
-
-  @media (max-width: 600px) {
-    width: 90px;
-    height: 90px;
+  @media (max-width: 768px) {
+    width: 140px; 
+    height: 140px;
   }
 `;
-
 
 
 const Notice_Detail = styled.div`

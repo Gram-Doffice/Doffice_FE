@@ -69,6 +69,12 @@ const Body = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
+
+    @media (max-width: 768px) {
+    height: auto;
+    overflow-y: auto;
+    padding: 0 10px;
+  }
 `;
 
 const Main = styled.div`
