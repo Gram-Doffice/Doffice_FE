@@ -46,10 +46,10 @@ const PostList = () => {
   //게시글 목록 조회
   // getAllNotice();
 
-  // const handleClick = (path) => {
-  //   setActive(path);
-  //   navigate(path);
-  // };
+  const handleClick = (path) => {
+    setActive(path);
+    navigate(path);
+  };
 
   return (
     <Body>

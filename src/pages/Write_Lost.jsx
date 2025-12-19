@@ -14,7 +14,9 @@ const Write_Notice = () => {
       <Main>
         <Container>
           <Page_move>
-            <Page_PostList onClick={() => navigate("/")}>게시글 목록</Page_PostList>
+            <Page_PostList onClick={() => navigate("/")}>
+              게시글 목록
+            </Page_PostList>
             <Arrow>
               <img src={arrow} alt="arrow" />
             </Arrow>
@@ -94,7 +96,6 @@ const Page_move = styled.div`
   @media (max-width: 1300px) {
     width: 100%;
   }
-  
 
   @media (max-width: 768px) {
     width: 100%;
@@ -111,14 +112,9 @@ const Page_PostList = styled.span`
     cursor: pointer;
   }
 
-
-
-
   @media (max-width: 768px) {
     font-size: 16px;
   }
-
-  
 `;
 
 const Page_WriteLost = styled.div`
