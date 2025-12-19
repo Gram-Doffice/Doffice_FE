@@ -1,53 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-
-  export const posts = [
-    {
-      id: 1,
-      title: "겨울 감성 카페 추천",
-      content:
-        "따뜻한 커피와 감성 인테리어로 힐링할 수 있는 서울의 겨울 카페를 소개합니다.",
-      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
-      date: "2025-11-07",
-    },
-    {
-      id: 2,
-      title: "React 상태 관리 완벽 가이드",
-      content:
-        "useState, Redux, Recoil 등 다양한 상태 관리 방법을 비교해봅니다.",
-      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0",
-      date: "2025-11-06",
-    },
-    {
-      id: 3,
-      title: "가을 여행지 BEST 5",
-      content:
-        "단풍이 절정인 11월, 국내에서 즐길 수 있는 가을 여행지를 추천합니다.",
-      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-      date: "2025-11-04",
-    },
-    {
-      id: 4,
-      title: "프론트엔드 포트폴리오 디자인 팁",
-      content:
-        "시선을 끄는 포트폴리오 UI/UX를 만드는 핵심 포인트를 알려드립니다.",
-      image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
-      date: "2025-11-02",
-    },
-  ];
+import PostList from "./PostList";
+import { getAllPost } from "../api/getAllPost";
 
 const LostList = () => {
   const navigate = useNavigate();
   const [active, setActive] = useState("/lost-list");
-  const [isOwn, setIsOwn] = useState(false);
+  const [islogged, setIslogged] = useState(false);
+  const [postList, setPostList] = useState([]);
 
   const handleClick = (path) => {
     setActive(path);
     navigate(path);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        setIslogged(true);
+      } else {
+        setIslogged(false);
+      }
+      try {
+        const res = await getAllPost();
+        console.log("res:", res);
+        console.log("isArray:", Array.isArray(res));
+        setPostList(res);
+      } catch (e) {
+        console.error("API 에러:", e);
+        setPostList([]);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Body>
@@ -76,7 +65,7 @@ const LostList = () => {
               </CatText>
             </CatBox>
 
-            {isOwn && (
+            {islogged && (
               <PostButtonBox>
                 <PostButton onClick={() => navigate("/write-lost")}>
                   분실물 작성하기
@@ -86,7 +75,7 @@ const LostList = () => {
           </ListInputBox>
 
           <AllListBox>
-            {posts.map((post) => (
+            {postList.map((post) => (
               <ListBox key={post.id} onClick={() => navigate("/check-lost")}>
                 <TitleText>{post.title}</TitleText>
                 <DateText>{post.date}</DateText>
