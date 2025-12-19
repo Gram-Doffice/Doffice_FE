@@ -82,6 +82,13 @@ const Write_Notice = () => {
 const Body = styled.div`
   width: 100%;
   height: 800px;
+  
+  @media (max-width: 768px) {
+    height: auto;
+    overflow-y: auto;
+    padding: 0 10px;
+  }
+
 `;
 
 const Main = styled.div`
@@ -89,12 +96,20 @@ const Main = styled.div`
   height: 92%;
   display: flex;
   justify-content: center;
+
+    @media (max-width: 768px) {
+    height: auto;
+  }
 `;
 const Container = styled.div`
   width: 63%;
   height: 100%;
   display: flex;
   flex-direction: column;
+
+    @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const Page_move = styled.div`
   width: 30%;
@@ -103,6 +118,17 @@ const Page_move = styled.div`
   align-items: center;
   gap: 20px;
   margin-bottom: 49px;
+
+  @media (max-width: 1300px) {
+    width: 100%;
+  }
+
+    @media (max-width: 768px) {
+    width: 100%;
+    font-size: 14px;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
 `;
 
 const Page_PostList = styled.span`
@@ -110,6 +136,10 @@ const Page_PostList = styled.span`
   color: #555555;
   &:hover {
     cursor: pointer;
+  }
+
+    @media (max-width: 768px) {
+    font-size: 16px;
   }
 `;
 
@@ -120,6 +150,10 @@ const Page_WriteNotice = styled.div`
   &:hover {
     cursor: pointer;
   }
+
+    @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 const Arrow = styled.div`
   width: 20px;
@@ -127,11 +161,22 @@ const Arrow = styled.div`
 `;
 const WN_container = styled.div`
   width: 100%;
+
+    @media (max-width: 768px) {
+    height: auto;
+    align-items: center;
+  }
 `;
+
+
 const Notice_Name = styled.div`
   font-size: 14pt;
   margin-bottom: 10px;
   color: #555555;
+
+    @media (max-width: 768px) {
+    font-size: 13pt;
+  }
 `;
 const Name_container = styled.input`
   width: 100%;
@@ -141,11 +186,19 @@ const Name_container = styled.input`
   margin-bottom: 10px;
   font-size: 18px;
   padding: 10px;
+
+    @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 const Notice_Detail = styled.div`
   font-size: 14pt;
   color: #555555;
   margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+    font-size: 13pt;
+  }
 `;
 const Detail_container = styled.textarea`
   width: 100%;
@@ -158,6 +211,17 @@ const Detail_container = styled.textarea`
   padding: 10px;
   margin-bottom: 20px;
   resize: none;
+
+    @media (max-width: 768px) {
+    font-size: 16px;
+    height: 500px;
+  }
+
+    ::-webkit-scrollbar {
+    display: none;
+  }
+
+
 `;
 const Name = styled.div`
   width: 100%;
