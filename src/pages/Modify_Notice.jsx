@@ -4,16 +4,16 @@ import arrow from "../assets/arrow.svg";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
-  export const posts = [
-    {
-      id: 1,
-      title: "겨울 감성 카페 추천",
-      content:
-        "따뜻한 커피와 감성 인테리어로 힐링할 수 있는 서울의 겨울 카페를 소개합니다.",
-      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
-      date: "2025-11-07",
-    }
-  ];
+export const posts = [
+  {
+    id: 1,
+    title: "겨울 감성 카페 추천",
+    content:
+      "따뜻한 커피와 감성 인테리어로 힐링할 수 있는 서울의 겨울 카페를 소개합니다.",
+    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+    date: "2025-11-07",
+  }
+];
 
 const Modify_Notice = () => {
   const navigate = useNavigate();
@@ -48,15 +48,12 @@ const Modify_Notice = () => {
               <Notice_Detail>내용</Notice_Detail>
               {posts.map((post) => (
                 <Detail_container
-                key={post.id}
-                type="text"
-                placeholder="내용을 입력해주세요"
-                defaultValue={
-                  post.content
-                }
-              ></Detail_container>
+                  key={post.id}
+                  type="text"
+                  placeholder="내용을 입력해주세요"
+                  defaultValue={post.content}
+                ></Detail_container>
               ))}
-              
             </Detail>
             <Upload_Button>수정하기</Upload_Button>
           </WN_container>
@@ -66,7 +63,6 @@ const Modify_Notice = () => {
   );
 };
 
-// ✅ 고정 높이 → 최소 높이 + 스크롤 가능하게 수정
 const Body = styled.div`
   width: 100%;
   min-height: 100vh;

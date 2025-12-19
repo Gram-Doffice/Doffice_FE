@@ -91,6 +91,11 @@ const Page_move = styled.div`
   gap: 20px;
   margin-bottom: 49px;
 
+  @media (max-width: 1300px) {
+    width: 100%;
+  }
+  
+
   @media (max-width: 768px) {
     width: 100%;
     font-size: 14px;
@@ -106,9 +111,14 @@ const Page_PostList = styled.span`
     cursor: pointer;
   }
 
+
+
+
   @media (max-width: 768px) {
     font-size: 16px;
   }
+
+  
 `;
 
 const Page_WriteLost = styled.div`
