@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import PostList from "./PostList";
-import { getAllPost } from "../api/getAllPost";
+import { getAllLost } from "../api/getAllLost";
 
 const LostList = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const LostList = () => {
         setIslogged(false);
       }
       try {
-        const res = await getAllPost();
+        const res = await getAllLost();
         console.log("res:", res);
         console.log("isArray:", Array.isArray(res));
         setPostList(res);
