@@ -22,6 +22,15 @@ const PostList = () => {
     navigate(path);
   };
 
+  const getPostPath = (post) => {
+    switch (post.type) {
+      case "LOST":
+        return `/post/lost/${post.id}`;
+      case "NOTICE":
+        return `/post/notice/${post.id}`;
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,7 +41,7 @@ const PostList = () => {
       } catch (e) {
         console.error("API 에러:", e);
         setPostList([]);
-      }
+      } 
     };
 
     fetchData();
@@ -80,8 +89,11 @@ const PostList = () => {
           </ListInputBox>
 
           <AllListBox>
-            {postList.map((post, index) => (
-              <ListBox key={index} onClick={() => navigate(`/post/:type/:id`)}>
+            {postList.map((post) => (
+              <ListBox
+                key={post.id}
+                onClick={() => navigate(getPostPath(post))}
+              >
                 <TitleText>{post.title}</TitleText>
                 <DateText>{post.createAt}</DateText>
               </ListBox>
