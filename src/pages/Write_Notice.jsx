@@ -31,7 +31,7 @@ const Write_Notice = () => {
     try {
       const res = await createNotice(payload);
       console.log(res)
-      alert("공지사항 등록 완료!");
+      // alert("공지사항 등록 완료!");
       navigate("/notice-list");
     } catch (error) {
       console.error("공지사항 등록 실패", error);

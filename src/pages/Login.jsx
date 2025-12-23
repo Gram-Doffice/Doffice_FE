@@ -26,16 +26,16 @@ const Login = () => {
 
     const requestBody = {
       username: id,
-      password: password
+      password: password,
     };
 
     try {
       const response = await loginUser(requestBody);
-      const accessToken = response.token;
+      const accessToken = response.accessToken;
       localStorage.setItem("accessToken", accessToken);
       console.log("로그인 성공!", response);
-      alert("로그인 성공!");
-      navigate("/notice-list");
+      //alert("로그인 성공!");
+      navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error);
       alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
