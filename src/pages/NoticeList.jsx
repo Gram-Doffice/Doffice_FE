@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import PostList from "./PostList";
-import { getAllPost } from "../api/getAllPost";
+import { getNotice } from "../api/getNotice";
 
 const NoticeList = () => {
   const navigate = useNavigate();
-  const [active, setActive] = useState("/notice-list");
+  const [active, setActive] = useState("/notice");
   const [islogged, setIslogged] = useState(false);
   const [postList, setPostList] = useState([]);
 
@@ -17,15 +17,13 @@ const NoticeList = () => {
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      setIslogged(true);
-    } else {
-      setIslogged(false);
-    }
+    setIslogged(!!localStorage.getItem("accessToken"));
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getAllPost();
+        const res = await getNotice();
         console.log("res:", res);
         console.log("isArray:", Array.isArray(res));
         setPostList(res);
@@ -52,15 +50,15 @@ const NoticeList = () => {
               </CatText>
               <hr />
               <CatText
-                active={active === "/notice-list"}
-                onClick={() => handleClick("/notice-list")}
+                active={active === "/notice"}
+                onClick={() => handleClick("/notice")}
               >
                 공지사항
               </CatText>
               <hr />
               <CatText
-                active={active === "/lost-list"}
-                onClick={() => handleClick("/lost-list")}
+                active={active === "/lost"}
+                onClick={() => handleClick("/lost")}
               >
                 분실물
               </CatText>
@@ -76,8 +74,11 @@ const NoticeList = () => {
           </ListInputBox>
 
           <AllListBox>
-            {postList.map((post, index) => (
-              <ListBox key={index} onClick={() => navigate("/check-notice")}>
+            {postList.map((post) => (
+              <ListBox
+                key={post.id}
+                onClick={() => navigate(`/post/notice/${post.id}`)}
+              >
                 <TitleText>{post.title}</TitleText>
                 <DateText>{post.createAt}</DateText>
               </ListBox>

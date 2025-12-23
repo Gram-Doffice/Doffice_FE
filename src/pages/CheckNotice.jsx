@@ -11,18 +11,18 @@ const CheckNotice = () => {
   const [post, setPost] = useState({});
   const [islogged, setIslogged] = useState(false);
 
-  const accessToken = localStorage.getItem("accessToken");
-  if (accessToken) {
-    setIslogged(true);
-  } else {
-    setIslogged(false);
-  }
-
   useEffect(() => {
+    if (!id) return;
+
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      setIslogged(true);
+    } else {
+      setIslogged(false);
+    }
     const fetchPost = async () => {
       try {
-        const res = await getNoticeDetail(`post/${id}`);
-        console.log(res.data);
+        const res = await getNoticeDetail(id);
         setPost(res);
       } catch (error) {
         console.log(error);
@@ -37,11 +37,11 @@ const CheckNotice = () => {
       <SecondContainer>
         <MainBox>
           <TextList>
-            <MoveListText onClick={() => navigate("/notice-list")}>
+            <MoveListText onClick={() => navigate("/notice")}>
               공지사항 목록
             </MoveListText>
             <img src={Picture} alt="arrow" />
-            <MoveLostText onClick={() => navigate("/check-lost")}>
+            <MoveLostText onClick={() => navigate(`/post/:type/:id`)}>
               공지사항 상세 확인
             </MoveLostText>
           </TextList>

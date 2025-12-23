@@ -13,10 +13,10 @@ import CheckNotice from "./pages/CheckNotice";
 function App() {
   return (
     <Routes>
-      <Route path="/lost-list" element={<LostList />} />
-      <Route path="/notice-list" element={<NoticeList />} />
-      <Route path="/check-lost" element={<CheckLost />} />
-      <Route path="/check-notice" element={<CheckNotice />} />
+      <Route path="/lost" element={<LostList />} />
+      <Route path="/notice" element={<NoticeList />} />
+      <Route path="/post/lost/:id" element={<CheckLost />} />
+      <Route path="/post/notice/:id" element={<CheckNotice />} />
       <Route path="/" element={<PostList />} />
       <Route path="/login" element={<Login />} />
       <Route path="/write-notice" element={<Write_Notice />} />
