@@ -51,15 +51,15 @@ const PostList = () => {
               </CatText>
               <hr />
               <CatText
-                active={active === "/notice-list"}
-                onClick={() => handleClick("/notice-list")}
+                active={active === "/notice"}
+                onClick={() => handleClick("/notice")}
               >
                 공지사항
               </CatText>
               <hr />
               <CatText
-                active={active === "/lost-list"}
-                onClick={() => handleClick("/lost-list")}
+                active={active === "/lost"}
+                onClick={() => handleClick("/lost")}
               >
                 분실물
               </CatText>
@@ -80,10 +80,10 @@ const PostList = () => {
           </ListInputBox>
 
           <AllListBox>
-            {postList.map((posts, index) => (
-              <ListBox key={index} onClick={() => navigate("/check-notice")}>
-                <TitleText>{posts.title}</TitleText>
-                <DateText>{posts.createAt}</DateText>
+            {postList.map((post, index) => (
+              <ListBox key={index} onClick={() => navigate(`/post/:type/:id`)}>
+                <TitleText>{post.title}</TitleText>
+                <DateText>{post.createAt}</DateText>
               </ListBox>
             ))}
           </AllListBox>

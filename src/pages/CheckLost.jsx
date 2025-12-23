@@ -12,19 +12,19 @@ const CheckLost = () => {
   const { id } = useParams();
   const [post, setPost] = useState({});
 
-  const accessToken = localStorage.getItem("accessToken");
-  if (accessToken) {
-    setIslogged(true);
-  } else {
-    setIslogged(false);
-  }
-
   useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      setIslogged(true);
+    } else {
+      setIslogged(false);
+    }
+
     const fetchData = async () => {
       try {
         const res = await getPostDetail(id);
         console.log(res.data);
-        setPost(res)
+        setPost(res);
       } catch (error) {
         console.log(error);
       }
@@ -39,11 +39,11 @@ const CheckLost = () => {
       <SecondContainer>
         <MainBox>
           <TextList>
-            <MoveListText onClick={() => navigate("/lost-list")}>
+            <MoveListText onClick={() => navigate("/lost")}>
               분실물 목록
             </MoveListText>
             <img src={Picture} alt="arrow" />
-            <MoveLostText onClick={() => navigate("/check-lost")}>
+            <MoveLostText onClick={() => navigate(`/post/:type/:id`)}>
               분실물 상세 확인
             </MoveLostText>
           </TextList>

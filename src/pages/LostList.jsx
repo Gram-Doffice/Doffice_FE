@@ -7,7 +7,7 @@ import { getAllPost } from "../api/getAllPost";
 
 const LostList = () => {
   const navigate = useNavigate();
-  const [active, setActive] = useState("/lost-list");
+  const [active, setActive] = useState("/lost");
   const [islogged, setIslogged] = useState(false);
   const [postList, setPostList] = useState([]);
 
@@ -51,15 +51,15 @@ const LostList = () => {
               </CatText>
               <hr />
               <CatText
-                active={active === "/notice-list"}
-                onClick={() => handleClick("/notice-list")}
+                active={active === "/notice"}
+                onClick={() => handleClick("/notice")}
               >
                 공지사항
               </CatText>
               <hr />
               <CatText
-                active={active === "/lost-list"}
-                onClick={() => handleClick("/lost-list")}
+                active={active === "/lost"}
+                onClick={() => handleClick("/lost")}
               >
                 분실물
               </CatText>
@@ -76,9 +76,12 @@ const LostList = () => {
 
           <AllListBox>
             {postList.map((post) => (
-              <ListBox key={post.id} onClick={() => navigate("/check-lost")}>
+              <ListBox
+                key={post.id}
+                onClick={() => navigate(`/post/lost/${post.id}`)}
+              >
                 <TitleText>{post.title}</TitleText>
-                <DateText>{post.date}</DateText>
+                <DateText>{post.createAt}</DateText>
               </ListBox>
             ))}
           </AllListBox>
