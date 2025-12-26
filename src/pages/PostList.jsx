@@ -97,7 +97,7 @@ const PostList = () => {
                 onClick={() => navigate(getPostPath(post))}
               >
                 <TitleText>{post.title}</TitleText>
-                <DateText>{post.createAt ? post.createAt.slice(0, 10) : "날짜 없음"}</DateText>
+                <DateText>{post.createAt.slice(0, 10)}</DateText>
               </ListBox>
             ))}
           </AllListBox>
