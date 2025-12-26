@@ -18,9 +18,6 @@ const NoticeList = () => {
 
   useEffect(() => {
     setIslogged(!!localStorage.getItem("accessToken"));
-  }, []);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await getNotice();
@@ -80,7 +77,7 @@ const NoticeList = () => {
                 onClick={() => navigate(`/post/notice/${post.id}`)}
               >
                 <TitleText>{post.title}</TitleText>
-                <DateText>{post.createAt}</DateText>
+                <DateText>{post.createAt.slice(0, 10)}</DateText>
               </ListBox>
             ))}
           </AllListBox>
