@@ -17,23 +17,31 @@ const LostList = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
       const accessToken = localStorage.getItem("accessToken");
       if (accessToken) {
         setIslogged(true);
       } else {
         setIslogged(false);
       }
+    const fetchData = async () => {
       try {
+<<<<<<< Updated upstream
         const res = await getAllPost();
         console.log("res:", res);
         console.log("isArray:", Array.isArray(res));
         setPostList(res);
+=======
+        const res = await getAllLost();
+        console.log("res:", res, Array.isArray(res));
+
+        setPostList(Array.isArray(res) ? res : []);
+>>>>>>> Stashed changes
       } catch (e) {
         console.error("API 에러:", e);
         setPostList([]);
       }
     };
+
 
     fetchData();
   }, []);

@@ -21,14 +21,15 @@ const NoticeList = () => {
     const fetchData = async () => {
       try {
         const res = await getNotice();
-        console.log("res:", res);
-        console.log("isArray:", Array.isArray(res));
-        setPostList(res);
+        console.log("res:", res, Array.isArray(res));
+
+        setPostList(Array.isArray(res) ? res : []);
       } catch (e) {
         console.error("API 에러:", e);
         setPostList([]);
       }
     };
+
 
     fetchData();
   }, []);
