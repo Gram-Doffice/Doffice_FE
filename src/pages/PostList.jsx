@@ -47,6 +47,8 @@ const PostList = () => {
     fetchData();
   }, []);
 
+    console.log(postList)
+
   return (
     <Body>
       <Header />
@@ -89,7 +91,7 @@ const PostList = () => {
           </ListInputBox>
 
           <AllListBox>
-            {postList.map((post) => (
+            {postList?.map((post) => (
               <ListBox
                 key={post.id}
                 onClick={() => navigate(getPostPath(post))}

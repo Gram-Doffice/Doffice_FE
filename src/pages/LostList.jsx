@@ -38,6 +38,8 @@ const LostList = () => {
     fetchData();
   }, []);
 
+
+
   return (
     <Body>
       <Header />
@@ -75,7 +77,7 @@ const LostList = () => {
           </ListInputBox>
 
           <AllListBox>
-            {postList.map((post) => (
+            {postList?.map((post) => (
               <ListBox
                 key={post.id}
                 onClick={() => navigate(`/post/lost/${post.id}`)}

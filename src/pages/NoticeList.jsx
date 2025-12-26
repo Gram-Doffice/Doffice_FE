@@ -71,7 +71,7 @@ const NoticeList = () => {
           </ListInputBox>
 
           <AllListBox>
-            {postList.map((post) => (
+            {postList?.map((post) => (
               <ListBox
                 key={post.id}
                 onClick={() => navigate(`/post/notice/${post.id}`)}

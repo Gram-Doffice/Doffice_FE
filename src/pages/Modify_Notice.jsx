@@ -1,22 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import arrow from "../assets/arrow.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
-
-export const posts = [
-  {
-    id: 1,
-    title: "겨울 감성 카페 추천",
-    content:
-      "따뜻한 커피와 감성 인테리어로 힐링할 수 있는 서울의 겨울 카페를 소개합니다.",
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
-    date: "2025-11-07",
-  }
-];
+import { updateNotice } from "../api/post.api";
+import { getNoticeDetail } from "../api/getNoticeDetail";
 
 const Modify_Notice = () => {
   const navigate = useNavigate();
+  const { postId } = useParams();
+
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    const loadPost = async () => {
+      try {
+        const res = await getNoticeDetail(postId);
+        setTitle(res.title);
+        setContent(res.content);
+      } catch (error) {
+        console.error("기존 글을 불러오지 못했습니다.", error);
+      }
+    };
+    loadPost();
+  }, [postId]);
+
+  const handleModify = async () => {
+    if (!title || !content) {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    const payload = { title, content };
+
+    try {
+      await updateNotice(postId, payload); // 수정 API 호출
+      alert("공지사항이 성공적으로 수정되었습니다.");
+      navigate("/check-notice"); // 혹은 상세 페이지로 이동
+    } catch (err) {
+      console.error("수정 실패:", err.response?.data || err.message);
+      alert("수정에 실패했습니다.");
+    }
+  };
 
   return (
     <Body>
@@ -35,27 +61,23 @@ const Modify_Notice = () => {
           <WN_container>
             <Name>
               <Notice_Name>제목</Notice_Name>
-              {posts.map((post) => (
-                <Name_container
-                  key={post.id}
-                  type="text"
-                  placeholder="제목을 입력해주세요"
-                  defaultValue={post.title}
-                ></Name_container>
-              ))}
+              <Name_container
+                type="text"
+                placeholder="제목을 입력해주세요"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              ></Name_container>
             </Name>
             <Detail>
               <Notice_Detail>내용</Notice_Detail>
-              {posts.map((post) => (
-                <Detail_container
-                  key={post.id}
-                  type="text"
-                  placeholder="내용을 입력해주세요"
-                  defaultValue={post.content}
-                ></Detail_container>
-              ))}
+              <Detail_container
+                type="text"
+                placeholder="내용을 입력해주세요"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              ></Detail_container>
             </Detail>
-            <Upload_Button>수정하기</Upload_Button>
+            <Upload_Button onClick={handleModify}>수정하기</Upload_Button>
           </WN_container>
         </Container>
       </Main>
@@ -70,7 +92,7 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
 
-    @media (max-width: 768px) {
+  @media (max-width: 768px) {
     height: auto;
     overflow-y: auto;
     padding: 0 10px;

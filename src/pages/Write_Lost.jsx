@@ -56,7 +56,7 @@ const Write_Lost = () => {
       await createLost(formData);
       alert("등록 성공!");
       navigate("/");
-    } catch (error) {
+    } catch (err) {
       alert("등록 실패!");
     }
   };
