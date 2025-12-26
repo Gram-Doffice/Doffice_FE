@@ -52,16 +52,17 @@ const CheckNotice = () => {
             <BtnBox>
               {islogged ? (
                 <>
-                  <EditBtn>수정하기</EditBtn>
+                  <EditBtn onClick={() => navigate("/modify-notice")}>
+                    수정하기
+                  </EditBtn>
                   <DeleteBtn>삭제하기</DeleteBtn>
                 </>
               ) : (
                 <HashTag># 공지사항</HashTag>
               )}
             </BtnBox>
-            <DateText>{post.createAt}</DateText>
+            <DateText>{post.createAt?.slice(0, 10)}</DateText>
           </DetailBox>
-
           <ContentBox>
             <hr />
             <ContentText>{post.content}</ContentText>

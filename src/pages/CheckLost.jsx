@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Picture from "../assets/arrow.svg";
-import Picture2 from "../assets/lostimg.svg";
 import Header from "../components/Header";
 import { getPostDetail } from "../api/getPostDetail";
 
@@ -54,22 +53,24 @@ const CheckLost = () => {
             <BtnBox>
               {islogged ? (
                 <>
-                  <EditBtn>수정하기</EditBtn>
+                  <EditBtn onClick={() => navigate("/modify-lost")}>
+                    수정하기
+                  </EditBtn>
                   <DeleteBtn>삭제하기</DeleteBtn>
                 </>
               ) : (
                 <HashTag># 분실물</HashTag>
               )}
             </BtnBox>
-            <DateText>{post.createAt}</DateText>
+            <DateText>{post.createAt?.slice(0, 10)}</DateText>
           </DetailBox>
 
           <ContentBox>
             <hr />
             <ImgBox>
-              <Img src={Picture2} alt="lost item" />
-              <Img src={Picture2} alt="lost item" />
-              <Img src={Picture2} alt="lost item" />
+              <Img src={post.imageUrl} alt="lost item" />
+              <Img src={post.imageUrl} alt="lost item" />
+              <Img src={post.imageUrl} alt="lost item" />
             </ImgBox>
 
             <ContentText>{post.content}</ContentText>
