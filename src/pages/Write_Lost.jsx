@@ -48,7 +48,6 @@ const Write_Lost = () => {
     const requestData = JSON.stringify({ title, content });
     formData.append("request", new Blob([requestData], { type: "application/json" }));
     
-    // 4. 여러 개의 이미지를 'images' 키에 각각 추가
     images.forEach((imgObj) => {
       formData.append("images", imgObj.file);
     });
@@ -57,7 +56,7 @@ const Write_Lost = () => {
       await createLost(formData);
       alert("등록 성공!");
       navigate("/");
-    } catch (err) {
+    } catch (error) {
       alert("등록 실패!");
     }
   };
