@@ -29,17 +29,25 @@ export const updateNotice = async (postId, payload) => {
   }
 };
 
-export const deletePost = async (postId) => {
+export const deleteNotice = async (postId) => {
   try {
-    const response = await publicApi.delete(
-        `/post/write-notice/${postId}`
-    );
+    const response = await publicApi.delete(`/post/write-notice/${postId}`);
     return response.data;
   } catch (err) {
     console.error(`게시물 삭제 실패:`, err.response?.data || err.message);
     throw err;
   }
-};  
+};
+
+export const deleteLost = async (postId) => {
+  try {
+    const response = await publicApi.delete(`/post/write-lost/${postId}`);
+    return response.data;
+  } catch (err) {
+    console.error(`게시물 삭제 실패:`, err.response?.data || err.message);
+    throw err;
+  }
+};
 
 /**
  * 분실물 등록 API
@@ -64,11 +72,15 @@ export const createLost = async (formData) => {
  */
 export const updateLost = async (postId, formData) => {
   try {
-    const response = await publicApi.put(`/post/write-lost/${postId}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await publicApi.put(
+      `/post/write-lost/${postId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     return response.data;
   } catch (err) {
     console.error(`분실물 수정 실패:`, err.response?.data || err.message);
