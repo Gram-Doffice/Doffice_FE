@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Picture from "../assets/arrow.svg";
 import Header from "../components/Header";
 import { getPostDetail } from "../api/getPostDetail";
+import { deletePost } from "../api/deletePost";
 
 const CheckLost = () => {
   const navigate = useNavigate();
@@ -32,6 +33,20 @@ const CheckLost = () => {
     fetchData();
   }, [id]);
 
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+    if (!confirmDelete) return;
+
+    try {
+      await deletePost(id);
+      alert("게시물이 삭제되었습니다.");
+      navigate("/lost"); // 삭제 후 목록으로 이동
+    } catch (error) {
+      console.error(error);
+      alert("삭제에 실패했습니다.");
+    }
+  };
+
   return (
     <Body>
       <Header />
@@ -56,7 +71,7 @@ const CheckLost = () => {
                   <EditBtn onClick={() => navigate("/modify-lost")}>
                     수정하기
                   </EditBtn>
-                  <DeleteBtn>삭제하기</DeleteBtn>
+                  <DeleteBtn onClick={handleDelete}>삭제하기</DeleteBtn>
                 </>
               ) : (
                 <HashTag># 분실물</HashTag>
@@ -68,9 +83,7 @@ const CheckLost = () => {
           <ContentBox>
             <hr />
             <ImgBox>
-              <Img src={post.imageUrl} alt="lost item" />
-              <Img src={post.imageUrl} alt="lost item" />
-              <Img src={post.imageUrl} alt="lost item" />
+              {post.imageUrl && <Img src={post.imageUrl} alt="lost-item" />}
             </ImgBox>
 
             <ContentText>{post.content}</ContentText>

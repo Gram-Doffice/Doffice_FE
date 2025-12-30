@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Picture from "../assets/arrow.svg";
 import Header from "../components/Header";
 import { getNoticeDetail } from "../api/getNoticeDetail";
+import { deletePost } from "../api/deletePost";
 
 const CheckNotice = () => {
   const navigate = useNavigate();
@@ -31,6 +32,20 @@ const CheckNotice = () => {
     fetchPost();
   }, [id]);
 
+  const handleDelete = async () => {
+      const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+      if (!confirmDelete) return;
+  
+      try {
+        await deletePost(id);
+        alert("게시물이 삭제되었습니다.");
+        navigate("/lost"); // 삭제 후 목록으로 이동
+      } catch (error) {
+        console.error(error);
+        alert("삭제에 실패했습니다.");
+      }
+    };
+
   return (
     <Body>
       <Header />
@@ -55,7 +70,7 @@ const CheckNotice = () => {
                   <EditBtn onClick={() => navigate("/modify-notice")}>
                     수정하기
                   </EditBtn>
-                  <DeleteBtn>삭제하기</DeleteBtn>
+                  <DeleteBtn onClick={handleDelete}>삭제하기</DeleteBtn>
                 </>
               ) : (
                 <HashTag># 공지사항</HashTag>
