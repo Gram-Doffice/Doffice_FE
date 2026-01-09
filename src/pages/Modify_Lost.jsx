@@ -147,8 +147,8 @@ const Modify_Lost = () => {
       <Main>
         <Container>
           <Page_move>
-            <Page_PostList onClick={() => navigate("/")}>
-              게시글 목록
+            <Page_PostList onClick={() => navigate(`/post/lost/${id}`)}>
+               분실물 상세 확인
             </Page_PostList>
             <Arrow>
               <img src={arrow} alt="arrow" />
