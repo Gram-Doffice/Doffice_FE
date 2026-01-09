@@ -18,7 +18,7 @@ const CheckNotice = () => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       setIslogged(true);
-    } else {
+    } else {  
       setIslogged(false);
     }
     const fetchPost = async () => {
@@ -39,7 +39,7 @@ const CheckNotice = () => {
       try {
         await deletePost(id);
         alert("게시물이 삭제되었습니다.");
-        navigate("/lost"); // 삭제 후 목록으로 이동
+        navigate("/"); // 삭제 후 목록으로 이동
       } catch (error) {
         console.error(error);
         alert("삭제에 실패했습니다.");
@@ -56,7 +56,7 @@ const CheckNotice = () => {
               공지사항 목록
             </MoveListText>
             <img src={Picture} alt="arrow" />
-            <MoveLostText onClick={() => navigate(`/post/:type/:id`)}>
+            <MoveLostText onClick={() => navigate(`/post/notice/${id}`)}>
               공지사항 상세 확인
             </MoveLostText>
           </TextList>
@@ -67,7 +67,7 @@ const CheckNotice = () => {
             <BtnBox>
               {islogged ? (
                 <>
-                  <EditBtn onClick={() => navigate("/modify-notice")}>
+                  <EditBtn onClick={() => navigate(`/post/modify-notice/${id}`)}>
                     수정하기
                   </EditBtn>
                   <DeleteBtn onClick={handleDelete}>삭제하기</DeleteBtn>
