@@ -8,7 +8,7 @@ import { getNoticeDetail } from "../api/getNoticeDetail";
 
 const Modify_Notice = () => {
   const navigate = useNavigate();
-  const { postId } = useParams();
+  const { id } = useParams();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -16,28 +16,35 @@ const Modify_Notice = () => {
   useEffect(() => {
     const loadPost = async () => {
       try {
-        const res = await getNoticeDetail(postId);
-        setTitle(res.title);
-        setContent(res.content);
+          const res = await getNoticeDetail(id);
+          setTitle(res.title || "");
+          setContent(res.content || "");
       } catch (error) {
         console.error("기존 글을 불러오지 못했습니다.", error);
       }
     };
-    loadPost();
-  }, [postId]);
 
+    if (id) {
+      loadPost();
+    } else {
+      console.log("5. postId가 없습니다! URL을 확인하세요.");
+    }
+  }, [id]);
   const handleModify = async () => {
     if (!title || !content) {
       alert("제목과 내용을 모두 입력해주세요.");
       return;
     }
 
-    const payload = { title, content };
+    const payload = {
+      title: title,
+      content: content,
+    };
 
     try {
-      await updateNotice(postId, payload); // 수정 API 호출
+      await updateNotice(id, payload);
       alert("공지사항이 성공적으로 수정되었습니다.");
-      navigate("/check-notice"); // 혹은 상세 페이지로 이동
+      navigate(`/post/notice/${id}`);
     } catch (err) {
       console.error("수정 실패:", err.response?.data || err.message);
       alert("수정에 실패했습니다.");
@@ -50,7 +57,7 @@ const Modify_Notice = () => {
       <Main>
         <Container>
           <Page_move>
-            <Page_PostList onClick={() => navigate("/check-notice")}>
+            <Page_PostList onClick={() => navigate(`/post/notice/${id}`)}>
               공지사항 상세 확인
             </Page_PostList>
             <Arrow>

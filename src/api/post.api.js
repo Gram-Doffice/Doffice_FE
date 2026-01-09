@@ -19,15 +19,19 @@ export const createNotice = async (payload) => {
 export const updateNotice = async (postId, payload) => {
   try {
     const response = await publicApi.put(
-     `/post/write-notice/${postId}`,
-      payload
+     `/post/modify-notice/${postId}`,
+      payload 
     );
     return response.data;
   } catch (err) {
-    console.error(`공지사항 수정 실패:`, err.response?.data || err.message);
+    console.error("서버 상세 에러:", err.response?.data);
     throw err;
   }
 };
+
+
+
+
 
 export const deleteNotice = async (postId) => {
   try {
@@ -67,13 +71,11 @@ export const createLost = async (formData) => {
   }
 };
 
-/**
- * 분실물 수정 API
- */
+
 export const updateLost = async (postId, formData) => {
   try {
     const response = await publicApi.put(
-      `/post/write-lost/${postId}`,
+      `/post/modify-lost/${Number(postId)}`, 
       formData,
       {
         headers: {

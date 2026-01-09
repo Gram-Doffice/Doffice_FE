@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import styled from "@emotion/styled";
 import arrow from "../assets/arrow.svg";
 import camera from "../assets/camera.svg";
+import trash from "../assets/trash-solid.svg"; // trash 아이콘 추가
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { createLost } from "../api/post.api";
@@ -11,11 +12,9 @@ const Write_Lost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   
-  // 1. 이미지들을 배열로 관리 (최대 3개)
   const [images, setImages] = useState([]); 
   const fileInputRef = useRef(null);
 
-  // 2. 사진 추가 핸들러
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     if (images.length + files.length > 3) {
@@ -23,7 +22,6 @@ const Write_Lost = () => {
       return;
     }
 
-    // 새 이미지 객체 생성 (파일 원본 + 미리보기용 URL)
     const newImages = files.map(file => ({
       file,
       preview: URL.createObjectURL(file)
@@ -32,7 +30,6 @@ const Write_Lost = () => {
     setImages([...images, ...newImages]);
   };
 
-  // 3. 사진 삭제 핸들러 (이미지 클릭 시 삭제 기능 추가)
   const handleRemoveImage = (index) => {
     const filteredImages = images.filter((_, i) => i !== index);
     setImages(filteredImages);
@@ -84,18 +81,20 @@ const Write_Lost = () => {
             </Name>
 
             <PhotoSection>
-              {/* 5. 등록된 이미지들 표시 */}
               {images.map((img, index) => (
                 <Picture_container 
                   key={index} 
                   hasImage={true} 
-                  onClick={() => handleRemoveImage(index)}
+                  // 클릭 시 삭제되는 기존 로직을 오버레이로 옮겨서 시각적으로 더 자연스럽게 만듭니다.
                 >
                   <img src={img.preview} alt="preview" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "10px" }} />
+                  {/* 호버 시 나타날 삭제 레이어 */}
+                  <DeleteOverlay onClick={() => handleRemoveImage(index)}>
+                    <img src={trash} alt="trash" width={40} height={40} />
+                  </DeleteOverlay>
                 </Picture_container>
               ))}
 
-              {/* 6. 3개 미만일 때만 추가 버튼 표시 */}
               {images.length < 3 && (
                 <Picture_container hasImage={false} onClick={() => fileInputRef.current.click()}>
                   <input 
@@ -104,11 +103,11 @@ const Write_Lost = () => {
                     ref={fileInputRef} 
                     onChange={handleImageChange} 
                     accept="image/*"
-                    multiple // 한 번에 여러 장 선택 가능하게 하려면 추가
+                    multiple 
                   />
                   사진 추가하기
                   <Picture>
-                    <img src={camera} width={80} height={80} alt="camera" />
+                    <img src={camera} width={90} height={84} alt="camera" />
                   </Picture>
                 </Picture_container>
               )}
@@ -130,8 +129,6 @@ const Write_Lost = () => {
     </Body>
   );
 };
-
-
 
 const Body = styled.div`
   width: 100%;
@@ -268,7 +265,28 @@ const PhotoSection = styled.div`
   margin: 20px 0;
 `;
 
+// 추가된 삭제 오버레이 스타일
+const DeleteOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 10px;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
 const Picture_container = styled.div`
+  position: relative; /* 오버레이 위치 기준점 */
   width: 170px;
   height: 170px;
   border: ${props => props.hasImage ? "none" : "4px dashed #7b7b7b"};
@@ -287,17 +305,17 @@ const Picture_container = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
+    width: 100px; /* 모바일 시 크기 조정 */
+    height: 100px;
     font-size: 16px;
     border-width: 3px;
-    padding: 30px 0;
   }
 `;
 
 const Picture = styled.div`
-  width: 113px;
+  width: 112px;
   height: 106px;
+  margin-top: 11px;
   display: flex;
   justify-content: center;
 `;

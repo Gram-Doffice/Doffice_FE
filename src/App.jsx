@@ -21,8 +21,8 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/write-notice" element={<Write_Notice />} />
       <Route path="/write-lost" element={<Write_Lost />} />
-      <Route path="/modify-notice" element={<Modify_Notice />} />
-      <Route path="/modify-lost" element={<Modify_Lost />} />
+      <Route path="/post/modify-notice/:id" element={<Modify_Notice />} />
+      <Route path="/post/modify-lost/:id" element={<Modify_Lost />} />
     </Routes>
   );
 }

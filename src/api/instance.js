@@ -23,9 +23,10 @@ publicApi.interceptors.response.use(
     if (error.response?.status === 401 || error.response?.status === 403) {
       localStorage.removeItem("accessToken");
       window.location.href = "/login";
-      return Promise.reject(error);
     }
+    return Promise.reject(error);
   }
 );
+
 
 export default publicApi;
