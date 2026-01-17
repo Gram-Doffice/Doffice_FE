@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-import PostList from "./PostList";
 import { getAllLost } from "../api/getAllLost";
 
 const LostList = () => {
@@ -10,6 +9,8 @@ const LostList = () => {
   const [active, setActive] = useState("/lost");
   const [islogged, setIslogged] = useState(false);
   const [postList, setPostList] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const handleClick = (path) => {
     setActive(path);
@@ -18,27 +19,24 @@ const LostList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const accessToken = localStorage.getItem("accessToken");
-      if (accessToken) {
-        setIslogged(true);
-      } else {
-        setIslogged(false);
-      }
+      setIslogged(!!accessToken);
+
       try {
         const res = await getAllLost();
         console.log("res:", res);
-        console.log("isArray:", Array.isArray(res));
-        setPostList(res);
+        setPostList(Array.isArray(res) ? res : []);
       } catch (e) {
         console.error("API 에러:", e);
         setPostList([]);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
-
-
 
   return (
     <Body>
@@ -76,17 +74,41 @@ const LostList = () => {
             )}
           </ListInputBox>
 
-          <AllListBox>
-            {postList?.map((post) => (
-              <ListBox
-                key={post.id}
-                onClick={() => navigate(`/post/lost/${post.id}`)}
-              >
-                <TitleText>{post.title}</TitleText>
-                <DateText>{post.createAt.slice(0, 10)}</DateText>
-              </ListBox>
-            ))}
-          </AllListBox>
+          {loading ? (
+            <CenterBox>
+              <NoPostBox>로딩 중...</NoPostBox>
+            </CenterBox>
+          ) : postList.length > 0 ? (
+            <AllListBox>
+              {postList.map((post) => (
+                <ListBox
+                  key={post.id}
+                  onClick={() => navigate(`/post/lost/${post.id}`)}
+                >
+                  <TitleText>{post.title}</TitleText>
+                  <DateText>{post.createAt.slice(0, 10)}</DateText>
+                </ListBox>
+              ))}
+            </AllListBox>
+          ) : (
+            <CenterBox>
+              <NoPostBox>등록된 게시물이 없습니다.</NoPostBox>
+            </CenterBox>
+          )}
+
+          {/*페이징*/}
+          <PageContainer>
+            <PageButton onClick={() => setPage(page - 1)} disabled={page === 1}>
+              이전
+            </PageButton>
+            <PageNumber>{page}</PageNumber>
+            <PageButton
+              onClick={() => setPage(page + 1)}
+              disabled={postList.length <= 12}
+            >
+              이후
+            </PageButton>
+          </PageContainer>
         </MainBox>
       </SecondContainer>
     </Body>
@@ -223,6 +245,20 @@ const PostButton = styled.button`
   }
 `;
 
+const CenterBox = styled.div`
+  width: 100%;
+  height: 300px; /* 목록 영역 높이 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NoPostBox = styled.span`
+  font-size: 24px;
+  color: #999999;
+  font-weight: 600;
+`;
+
 const AllListBox = styled.div`
   display: flex;
   gap: 60px;
@@ -303,6 +339,24 @@ const DateText = styled.span`
     margin-top: 8px;
     align-self: flex-end;
   }
+`;
+
+const PageContainer = styled.div`
+  margin: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+`;
+
+const PageButton = styled.button`
+  padding: 7px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+`;
+
+const PageNumber = styled.span`
+  font-size: 16px;
 `;
 
 export default LostList;

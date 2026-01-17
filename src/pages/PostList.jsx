@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
@@ -11,6 +11,7 @@ const PostList = () => {
   const [islogged, setIslogged] = useState(false);
   const [postList, setPostList] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -34,20 +35,20 @@ const PostList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const res = await getAllPost(page);
-        console.log("res:", res, Array.isArray(res));
-
         setPostList(Array.isArray(res) ? res : []);
       } catch (e) {
         console.error("API 에러:", e);
         setPostList([]);
-      } 
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
   }, [page]);
-
 
   return (
     <Body>
@@ -90,17 +91,28 @@ const PostList = () => {
             </PostButtonBox>
           </ListInputBox>
 
-          <AllListBox>
-            {postList?.map((post) => (
-              <ListBox
-                key={post.id}
-                onClick={() => navigate(getPostPath(post))}
-              >
-                <TitleText>{post.title}</TitleText>
-                <DateText>{post.createAt.slice(0, 10)}</DateText>
-              </ListBox>
-            ))}
-          </AllListBox>
+          {loading ? (
+            <CenterBox>
+              <NoPostBox>로딩 중...</NoPostBox>
+            </CenterBox>
+          ) : postList.length > 0 ? (
+            <AllListBox>
+              {postList.map((post) => (
+                <ListBox
+                  key={post.id}
+                  onClick={() => navigate(getPostPath(post))}
+                >
+                  <TitleText>{post.title}</TitleText>
+                  <DateText>{post.createAt.slice(0, 10)}</DateText>
+                </ListBox>
+              ))}
+            </AllListBox>
+          ) : (
+            <CenterBox>
+              <NoPostBox>등록된 게시물이 없습니다.</NoPostBox>
+            </CenterBox>
+          )}
+
           {/*페이징*/}
           <PageContainer>
             <PageButton onClick={() => setPage(page - 1)} disabled={page === 1}>
@@ -250,6 +262,20 @@ const PostButton = styled.button`
   }
 `;
 
+const CenterBox = styled.div`
+  width: 100%;
+  height: 300px; /* 목록 영역 높이 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NoPostBox = styled.span`
+  font-size: 24px;
+  color: #999999;
+  font-weight: 600;
+`;
+
 const AllListBox = styled.div`
   display: flex;
   gap: 60px;
@@ -339,16 +365,16 @@ const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 35px;
-`
+`;
 
 const PageButton = styled.button`
   padding: 7px 10px;
   font-size: 16px;
   border-radius: 5px;
-`
+`;
 
 const PageNumber = styled.span`
   font-size: 16px;
-`
+`;
 
 export default PostList;
