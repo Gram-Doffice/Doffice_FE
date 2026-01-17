@@ -10,6 +10,7 @@ const PostList = () => {
 
   const [islogged, setIslogged] = useState(false);
   const [postList, setPostList] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -34,7 +35,7 @@ const PostList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getAllPost();
+        const res = await getAllPost(page);
         console.log("res:", res, Array.isArray(res));
 
         setPostList(Array.isArray(res) ? res : []);
@@ -45,9 +46,8 @@ const PostList = () => {
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
-    console.log(postList)
 
   return (
     <Body>
@@ -101,6 +101,19 @@ const PostList = () => {
               </ListBox>
             ))}
           </AllListBox>
+          {/*페이징*/}
+          <PageContainer>
+            <PageButton onClick={() => setPage(page - 1)} disabled={page === 1}>
+              이전
+            </PageButton>
+            <PageNumber>{page}</PageNumber>
+            <PageButton
+              onClick={() => setPage(page + 1)}
+              disabled={postList.length <= 12}
+            >
+              이후
+            </PageButton>
+          </PageContainer>
         </MainBox>
       </SecondContainer>
     </Body>
@@ -319,5 +332,23 @@ const DateText = styled.span`
     align-self: flex-end;
   }
 `;
+
+const PageContainer = styled.div`
+  margin: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+`
+
+const PageButton = styled.button`
+  padding: 7px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+`
+
+const PageNumber = styled.span`
+  font-size: 16px;
+`
 
 export default PostList;
