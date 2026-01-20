@@ -23,9 +23,15 @@ const NoticeList = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await getNotice();
-        console.log("res:", res, Array.isArray(res));
-        setPostList(Array.isArray(res) ? res : []);
+        const res = await getNotice(page);
+        //setPostList(Array.isArray(res) ? res : []);
+        if (Array.isArray(res)) {
+          const start = (page - 1) * 12;
+          const end = start + 12;
+          setPostList(res.slice(start, end));
+        } else {
+          setPostList([]);
+        }
       } catch (e) {
         console.error("API 에러:", e);
         setPostList([]);
@@ -35,7 +41,7 @@ const NoticeList = () => {
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   return (
     <Body>
@@ -104,7 +110,7 @@ const NoticeList = () => {
             <PageNumber>{page}</PageNumber>
             <PageButton
               onClick={() => setPage(page + 1)}
-              disabled={postList.length <= 12}
+              disabled={postList.length < 12}
             >
               이후
             </PageButton>

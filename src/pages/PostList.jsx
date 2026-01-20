@@ -38,7 +38,14 @@ const PostList = () => {
       setLoading(true);
       try {
         const res = await getAllPost(page);
-        setPostList(Array.isArray(res) ? res : []);
+        //setPostList(Array.isArray(res) ? res : []);
+        if (Array.isArray(res)) {
+          const start = (page - 1) * 12;
+          const end = start + 12;
+          setPostList(res.slice(start, end));
+        } else {
+          setPostList([]);
+        }
       } catch (e) {
         console.error("API 에러:", e);
         setPostList([]);
@@ -115,13 +122,16 @@ const PostList = () => {
 
           {/*페이징*/}
           <PageContainer>
-            <PageButton onClick={() => setPage(page - 1)} disabled={page === 1}>
+            <PageButton
+              onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+              disabled={page === 1}
+            >
               이전
             </PageButton>
             <PageNumber>{page}</PageNumber>
             <PageButton
               onClick={() => setPage(page + 1)}
-              disabled={postList.length <= 12}
+              disabled={postList.length < 12}
             >
               이후
             </PageButton>
