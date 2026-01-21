@@ -20,25 +20,32 @@ const LostList = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+
       const accessToken = localStorage.getItem("accessToken");
       setIslogged(!!accessToken);
 
       try {
-              const res = await getAllLost(page);
-              //setPostList(Array.isArray(res) ? res : []);
-              if (Array.isArray(res)) {
-                const start = (page - 1) * 12;
-                const end = start + 12;
-                setPostList(res.slice(start, end));
-              } else {
-                setPostList([]);
-              }
-            } catch (e) {
-              console.error("API 에러:", e);
-              setPostList([]);
-            } finally {
-              setLoading(false);
-            }
+        const res = await getAllLost();
+
+        if (Array.isArray(res)) {
+          //최신순 정렬
+          const sorted = [...res].sort(
+            (a, b) => new Date(b.createAt) - new Date(a.createAt),
+          );
+
+          //프론트 페이지네이션
+          const start = (page - 1) * 12;
+          const end = start + 12;
+          setPostList(sorted.slice(start, end));
+        } else {
+          setPostList([]);
+        }
+      } catch (e) {
+        console.error("API 에러:", e);
+        setPostList([]);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();

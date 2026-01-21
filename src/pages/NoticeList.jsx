@@ -19,16 +19,22 @@ const NoticeList = () => {
 
   useEffect(() => {
     setIslogged(!!localStorage.getItem("accessToken"));
-
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await getNotice(page);
-        //setPostList(Array.isArray(res) ? res : []);
+        //page 넘기지 않음 (전체 데이터 받기)
+        const res = await getNotice();
+
         if (Array.isArray(res)) {
+          //최신순 정렬
+          const sorted = [...res].sort(
+            (a, b) => new Date(b.createAt) - new Date(a.createAt),
+          );
+
+          //프론트 페이지네이션
           const start = (page - 1) * 12;
           const end = start + 12;
-          setPostList(res.slice(start, end));
+          setPostList(sorted.slice(start, end));
         } else {
           setPostList([]);
         }
@@ -42,6 +48,7 @@ const NoticeList = () => {
 
     fetchData();
   }, [page]);
+  
 
   return (
     <Body>
