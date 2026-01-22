@@ -1,91 +1,115 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import eye from "../assets/eye.svg";
-
-
-
+import Header from "../components/Header";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../api/login.api";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [showPw, setShowPw] = useState(false);
 
+  const [password, setPassword] = useState("");
+  const [id, setId] = useState("");
 
+  const handleSubmit = async () => {
+    if (!password && !id) {
+      alert("아이디와 비밀번호를 입력해주세요");
+      return;
+    } else if (!password) {
+      alert("비밀번호를 입력해주세요");
+      return;
+    } else if (!id) {
+      alert("아이디를 입력해주세요");
+      return;
+    }
+
+    const requestBody = {
+      username: id,
+      password: password,
+    };
+
+    try {
+      const response = await loginUser(requestBody);
+      const accessToken = response.accessToken;
+      localStorage.setItem("accessToken", accessToken);
+      console.log("로그인 성공!", response);
+      //alert("로그인 성공!");
+      navigate("/");
+    } catch (error) {
+      console.error("로그인 실패:", error);
+      alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
+    }
+  };
 
   return (
     <Body>
-      <Header>
-        <Menu>
-          <HomeButton>HOME</HomeButton>
-          <LogIn>LOGIN</LogIn>
-        </Menu>
-      </Header>
-      <LogIn_Box>
+      <Header />
+      <Login_Box>
         <Login_Text>로그인</Login_Text>
         <Id_Input_Box
           type="text"
           placeholder="아이디를 입력해주세요"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
         ></Id_Input_Box>
         <Password>
           <Password_Input_Box
-            type="password"
-            placeholder="비밀번호를 입력해주세요"
+            type={showPw ? "text" : "password"}
+            placeholder="비밀번호를 입력해주세요."
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           ></Password_Input_Box>
-          <img src={eye} />
+          <Eye_Icon
+            type="button"
+            onClick={() => setShowPw((v) => !v)}
+            title={showPw ? "숨기기" : "보기"}
+          >
+            <img src={eye} alt="비밀번호 보기" />
+          </Eye_Icon>
         </Password>
-        <LogIn_Button>로그인</LogIn_Button>
-      </LogIn_Box>
+        <LogIn_Button onClick={handleSubmit}>로그인</LogIn_Button>
+      </Login_Box>
     </Body>
   );
 };
 
 const Body = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 900px;
-`;
-
-const Header = styled.div`
-  width: 100vw;
-  height: 7%;
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
   position: relative;
-  display: flex;
-  align-items: center;
 `;
 
-const Menu = styled.div`
-  width: 13%;
-  height: auto;
-  position: absolute;
-  right: 7%;
-  display: flex;
-  gap: 100px;
-`;
-
-const HomeButton = styled.span`
-  font-size: 25px;
-  font-weight: 700;
-  color: #555555;
-      &:hover{
-    cursor: pointer;
-  }
-`;
-
-const LogIn = styled.div`
-  font-size: 25px;
-  font-weight: 700;
-  color: #555555;
-      &:hover{
-    cursor: pointer;
-  }
-`;
-
-const LogIn_Box = styled.div`
+const Login_Box = styled.div`
   width: 26%;
-  height: 44%;
+  height: 500px;
   position: absolute;
   top: 28%;
   left: 37%;
   display: flex;
   flex-direction: column;
-  margin: 0;
+
+  /* 반응형 */
+  @media (max-width: 1440px) {
+    left: 35%;
+  }
+
+  @media (max-width: 1024px) {
+    width: 40%;
+    left: 30%;
+  }
+
+  @media (max-width: 768px) {
+    width: 60%;
+    left: 20%;
+    top: 25%;
+  }
+
+  @media (max-width: 480px) {
+    width: 80%;
+    left: 10%;
+    top: 20%;
+  }
 `;
 
 const Login_Text = styled.span`
@@ -94,36 +118,81 @@ const Login_Text = styled.span`
   border-left: 2px solid #000000;
   padding: 0 20px;
   margin-bottom: 99px;
+
+  @media (max-width: 768px) {
+    font-size: 36px;
+    margin-bottom: 70px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 28px;
+    margin-bottom: 50px;
+  }
 `;
+
 const Id_Input_Box = styled.input`
   width: 100%;
-  height: 10%;
+  height: 46px;
   border: 1px solid #66c50d;
   margin-bottom: 58px;
   border-radius: 5px;
   padding-left: 20px;
-    &:focus{
+  font-size: 16px;
+  &:focus {
     outline: none;
+  }
+
+  @media (max-width: 768px) {
+    height: 42px;
+  }
+
+  @media (max-width: 480px) {
+    height: 40px;
   }
 `;
 
 const Password = styled.div`
   width: 100%;
-  height: 10%;
+  height: 46px;
   border: 1px solid #66c50d;
   margin-bottom: 72px;
   border-radius: 5px;
   display: flex;
   align-items: center;
   padding-right: 20px;
+
+  @media (max-width: 768px) {
+    height: 42px;
+  }
+
+  @media (max-width: 480px) {
+    height: 40px;
+  }
+
+  img {
+    width: 20px;
+    cursor: pointer;
+
+    @media (max-width: 480px) {
+      width: 18px;
+    }
+  }
+`;
+
+const Eye_Icon = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Password_Input_Box = styled.input`
   width: 95%;
   height: 100%;
+  border-radius: 5px;
   border: none;
   padding-left: 20px;
-  &:focus{
+  font-size: 16px;
+
+  &:focus {
     outline: none;
   }
 `;
@@ -135,10 +204,22 @@ const LogIn_Button = styled.button`
   border: none;
   color: #ffffff;
   border-radius: 5px;
+  font-size: 18px;
+  transition: background-color 0.2s ease;
 
-  &:hover{
+  &:hover {
     background-color: rgb(82, 170, 6);
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    height: 50px;
+    font-size: 16px;
+  }
+
+  @media (max-width: 480px) {
+    height: 45px;
+    font-size: 15px;
   }
 `;
 

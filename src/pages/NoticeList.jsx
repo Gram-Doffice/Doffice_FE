@@ -1,107 +1,237 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import { getNotice } from "../api/getNotice";
 
 const NoticeList = () => {
   const navigate = useNavigate();
+  const [active, setActive] = useState("/notice");
+  const [islogged, setIslogged] = useState(false);
+  const [postList, setPostList] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  const handleClick = (path) => {
+    setActive(path);
+    navigate(path);
+  };
+
+  useEffect(() => {
+    setIslogged(!!localStorage.getItem("accessToken"));
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        //page 넘기지 않음 (전체 데이터 받기)
+        const res = await getNotice();
+
+        if (Array.isArray(res)) {
+          //최신순 정렬
+          const sorted = [...res].sort(
+            (a, b) => new Date(b.createAt) - new Date(a.createAt),
+          );
+
+          //프론트 페이지네이션
+          const start = (page - 1) * 12;
+          const end = start + 12;
+          setPostList(sorted.slice(start, end));
+        } else {
+          setPostList([]);
+        }
+      } catch (e) {
+        console.error("API 에러:", e);
+        setPostList([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [page]);
+  
 
   return (
     <Body>
-      <Header>
-        <HeaderTextBox>
-          <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText>LOGIN</HeaderText>
-        </HeaderTextBox>
-      </Header>
+      <Header />
       <SecondContainer>
         <MainBox>
-          <ListText onClick={() => navigate("/")}>게시물 목록</ListText>
+          <ListText>게시물 목록</ListText>
+
           <ListInputBox>
             <CatBox>
-              <CatText onClick={() => navigate("/")}>전체 게시물</CatText>
+              <CatText active={active === "/"} onClick={() => handleClick("/")}>
+                전체 게시물
+              </CatText>
               <hr />
-              <CatText onClick={() => navigate("/notice-list")}>
+              <CatText
+                active={active === "/notice"}
+                onClick={() => handleClick("/notice")}
+              >
                 공지사항
               </CatText>
               <hr />
-              <CatText onClick={() => navigate("/lost-list")}>분실물 </CatText>
+              <CatText
+                active={active === "/lost"}
+                onClick={() => handleClick("/lost")}
+              >
+                분실물
+              </CatText>
             </CatBox>
-            <PostButton>공지사항 작성하기</PostButton>
+
+            {islogged && (
+              <PostButtonBox>
+                <PostButton onClick={() => navigate("/write-notice")}>
+                  공지사항 작성하기
+                </PostButton>
+              </PostButtonBox>
+            )}
           </ListInputBox>
-          <AllListBox>
-            <ListBox onClick={() => navigate("/check-notice")}>
-              <TitleText>제목이 들어갑니다.</TitleText>
-              <DateText>2025 / 10 / 24</DateText>
-            </ListBox>
-          </AllListBox>
+
+          {loading ? (
+            <CenterBox>
+              <NoPostBox>로딩 중...</NoPostBox>
+            </CenterBox>
+          ) : postList.length > 0 ? (
+            <AllListBox>
+              {postList.map((post) => (
+                <ListBox
+                  key={post.id}
+                  onClick={() => navigate(`/post/notice/${post.id}`)}
+                >
+                  <TitleText>{post.title}</TitleText>
+                  <DateText>{post.createAt.slice(0, 10)}</DateText>
+                </ListBox>
+              ))}
+            </AllListBox>
+          ) : (
+            <CenterBox>
+              <NoPostBox>등록된 게시물이 없습니다.</NoPostBox>
+            </CenterBox>
+          )}
+
+          {/*페이징*/}
+          <PageContainer>
+            <PageButton onClick={() => setPage(page - 1)} disabled={page === 1}>
+              이전
+            </PageButton>
+            <PageNumber>{page}</PageNumber>
+            <PageButton
+              onClick={() => setPage(page + 1)}
+              disabled={postList.length < 12}
+            >
+              이후
+            </PageButton>
+          </PageContainer>
         </MainBox>
       </SecondContainer>
     </Body>
   );
 };
 
+/* ========== styled components (반응형 적용) ========== */
+
 const Body = styled.div`
   width: 100%;
-  height: 100vh;
-`;
-const Header = styled.div`
-  width: 100%;
-  height: 8%;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 49px;
-`;
-const HeaderTextBox = styled.div``;
+  margin-bottom: 100px;
 
-const HeaderText = styled.span`
-  font-size: 25px;
-  font-weight: bold;
-  margin-right: 102px;
-  color: #555555;
-  cursor: pointer;
+  @media (max-width: 768px) {
+    height: auto;
+    margin-bottom: 100px;
+  }
 `;
 
 const SecondContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    padding: 20px;
+  }
 `;
 
 const MainBox = styled.div`
-  width: 63%;
+  width: 1020px;
   height: 100%;
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    width: 95%;
+  }
 `;
 
 const ListText = styled.span`
   font-size: 22px;
   font-weight: bold;
   color: #555555;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 `;
 
 const ListInputBox = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const CatBox = styled.div`
   display: flex;
-  flex-direction: row;
   gap: 15px;
   font-size: 18px;
+  flex-wrap: wrap;
 
   hr {
     color: #777777;
   }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    gap: 10px;
+  }
 `;
 
 const CatText = styled.div`
-  color: #555555;
+  color: ${(props) => (props.active ? "#000000" : "#777777")};
+  font-weight: ${(props) => (props.active ? "600" : "400")};
   cursor: pointer;
+
+  @media (max-width: 480px) {
+    font-size: 15px;
+  }
+`;
+
+const PostButtonBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 `;
 
 const PostButton = styled.button`
@@ -111,39 +241,135 @@ const PostButton = styled.button`
   padding: 14px 18px;
   border-radius: 5px;
   background-color: #66c50d;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background-color: #52aa06;
+  }
+
+  @media (max-width: 768px) {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `;
+
 const AllListBox = styled.div`
   display: flex;
-  flex-direction: row;
   gap: 60px;
   margin-top: 35px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  @media (max-width: 1024px) {
+    gap: 40px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const ListBox = styled.div`
-  width: 30%;
+  width: 300px;
   height: 25vh;
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   position: relative;
+  background-color: white;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 1024px) {
+    width: 45%;
+    height: 22vh;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    padding: 16px;
+  }
+`;
+
+const CenterBox = styled.div`
+  width: 100%;
+  height: 300px; /* 목록 영역 높이 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NoPostBox = styled.span`
+  font-size: 24px;
+  color: #999999;
+  font-weight: 600;
 `;
 
 const TitleText = styled.span`
   font-size: 22px;
   font-weight: bold;
   align-self: center;
-  position: absolute;
-  top: 68px;
-  left: 63px;
+  text-align: center;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 `;
+
 const DateText = styled.span`
   font-size: 16px;
   font-weight: bold;
-  align-self: flex-end;
   color: #555555;
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    position: static;
+    margin-top: 8px;
+    align-self: flex-end;
+  }
 `;
+
+const PageContainer = styled.div`
+  margin: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+`;
+
+const PageButton = styled.button`
+  padding: 7px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+`;
+
+const PageNumber = styled.span`
+  font-size: 16px;
+`;
+
 export default NoticeList;

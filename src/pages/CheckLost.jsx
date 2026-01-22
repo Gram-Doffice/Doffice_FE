@@ -1,64 +1,92 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Picture from "../assets/arrow.svg";
-import Picture2 from "../assets/lostimg.svg";
+import Header from "../components/Header";
+import { getPostDetail } from "../api/getPostDetail";
+import { deletePost } from "../api/deletePost";
 
-const CheckList = () => {
+const CheckLost = () => {
   const navigate = useNavigate();
+  const [islogged, setIslogged] = useState(false);
+  const { id } = useParams();
+  const [post, setPost] = useState({});
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      setIslogged(true);
+    } else {
+      setIslogged(false);
+    }
+
+    const fetchData = async () => {
+      try {
+        const res = await getPostDetail(id);
+        console.log(res.data);
+        setPost(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+    if (!confirmDelete) return;
+
+    try {
+      await deletePost(id);
+      alert("게시물이 삭제되었습니다.");
+      navigate("/"); // 삭제 후 목록으로 이동
+    } catch (error) {
+      console.error(error);
+      alert("삭제에 실패했습니다.");
+    }
+  };
 
   return (
     <Body>
-      <Header>
-        <HeaderTextBox>
-          <HeaderText onClick={() => navigate("/")}>HOME</HeaderText>
-          <HeaderText>LOGIN</HeaderText>
-        </HeaderTextBox>
-      </Header>
+      <Header />
       <SecondContainer>
         <MainBox>
           <TextList>
-            <MoveListText onClick={() => navigate("/")}>
-              게시물 목록
+            <MoveListText onClick={() => navigate("/lost")}>
+              분실물 목록
             </MoveListText>
-            <img src={Picture} />
-            <MoveLostText onClick={() => navigate("/check-lost")}>
+            <img src={Picture} alt="arrow" />
+            <MoveLostText onClick={() => navigate(`/post/lost/${id}`)}>
               분실물 상세 확인
             </MoveLostText>
           </TextList>
-          <TitleText>제목이 들어갑니다.</TitleText>
+
+          <TitleText>{post.title}</TitleText>
 
           <DetailBox>
             <BtnBox>
-              <EditBtn>수정하기</EditBtn>
-              <DeleteBtn>삭제하기</DeleteBtn>
+              {islogged ? (
+                <>
+                  <EditBtn onClick={() => navigate(`/post/modify-lost/${id}`)}>
+                    수정하기
+                  </EditBtn>
+                  <DeleteBtn onClick={handleDelete}>삭제하기</DeleteBtn>
+                </>
+              ) : (
+                <HashTag># 분실물</HashTag>
+              )}
             </BtnBox>
-            <DateText>2025 / 10 / 24</DateText>
+            <DateText>{post.createAt?.slice(0, 10)}</DateText>
           </DetailBox>
+
           <ContentBox>
             <hr />
             <ImgBox>
-              <Img src={Picture2} />
-              <Img src={Picture2} />
-              <Img src={Picture2} />
+              {post.imageUrl && <Img src={post.imageUrl} alt="lost-item" />}
             </ImgBox>
-            <ContentText>
-              유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일 저녁 치킨!유후! 내일 저녁 치킨!유후! 내일 저녁
-              치킨!유후! 내일
-            </ContentText>
+
+            <ContentText>{post.content}</ContentText>
           </ContentBox>
         </MainBox>
       </SecondContainer>
@@ -66,52 +94,67 @@ const CheckList = () => {
   );
 };
 
+/* ================= styled components ================= */
+
 const Body = styled.div`
   width: 100%;
-  height: 100vh;
-  margin-bottom: 174px;
-`;
-const Header = styled.div`
-  width: 100%;
-  height: 8%;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 49px;
-`;
+  min-height: 100vh;
+  margin-bottom: 120px;
 
-const HeaderTextBox = styled.div``;
-
-const HeaderText = styled.span`
-  font-size: 25px;
-  font-weight: bold;
-  margin-right: 102px;
-  color: #555555;
-  cursor: pointer;
+  @media (max-width: 768px) {
+    margin-bottom: 80px;
+  }
 `;
 
 const SecondContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    padding: 20px;
+  }
 `;
 
 const MainBox = styled.div`
   width: 63%;
-  height: 62%;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    width: 95%;
+  }
 `;
 
 const TextList = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 20px;
-  margin-bottom: 67px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
 
   img {
     width: 20px;
     height: 20px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 8px;
   }
 `;
 
@@ -119,30 +162,66 @@ const MoveListText = styled.span`
   font-size: 18px;
   color: #999999;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const MoveLostText = styled.span`
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
-const TitleText = styled.span`
+const TitleText = styled.h1`
   font-size: 30px;
+  margin: 0;
+  color: #222;
+
+  @media (max-width: 1024px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 22px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
 `;
 
 const DetailBox = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 50px;
+  margin-top: 40px;
   justify-content: space-between;
-  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 25px;
+    gap: 6px;
+  }
 `;
 
 const BtnBox = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    gap: 10px;
+  }
 `;
 
 const EditBtn = styled.button`
@@ -150,26 +229,37 @@ const EditBtn = styled.button`
   border: 1px solid #52aa06;
   color: #52aa06;
   border-radius: 5px;
-  padding: 14px 18px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
 
   &:hover {
     background-color: #52aa06;
-    border: none;
+    color: white;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`;
+
+const DeleteBtn = styled(EditBtn)`
+  border: 1px solid #ff4646;
+  color: #ff4646;
+
+  &:hover {
+    background-color: #ff4646;
     color: white;
   }
 `;
 
-const DeleteBtn = styled.button`
-  background-color: white;
-  border: 1px solid #ff4646;
-  color: #ff4646;
-  border-radius: 5px;
-  padding: 14px 18px;
+const HashTag = styled.span`
+  font-size: 18px;
+  font-weight: bold;
+  color: #555555;
 
-  &:hover {
-    background-color: #ff4646;
-    border: none;
-    color: white;
+  @media (max-width: 768px) {
+    font-size: 16px;
   }
 `;
 
@@ -178,23 +268,74 @@ const DateText = styled.span`
   font-size: 18px;
   color: #555555;
   font-weight: bold;
-`;
 
-const ContentText = styled.span`
-  font-size: 16px;
+  @media (max-width: 768px) {
+    font-size: 16px;
+    align-self: flex-start;
+  }
 `;
 
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
+  margin-top: 20px;
+
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+`;
+
+const ImgBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 `;
 
 const Img = styled.img`
   width: 19%;
-  margin-right: 23px;
+  min-width: 160px;
+  max-width: 220px;
+  border-radius: 8px;
+  object-fit: cover;
+
+  @media (max-width: 1024px) {
+    width: 28%;
+  }
+
+  @media (max-width: 768px) {
+    width: 45%;
+  }
+
+  @media (max-width: 480px) {
+    width: 80%;
+  }
 `;
 
-const ImgBox = styled.div``;
+const ContentText = styled.p`
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  word-break: keep-all;
 
-export default CheckList;
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+`;
+
+export default CheckLost;
